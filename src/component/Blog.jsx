@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link, BrowserRouter as Router, Route, Switch, useRouteMatch} from "react-router-dom"
 import Recipes from "./recipes"
-import Dog from "./Dog"
-import Cars from "./Cars"
+import Dog from "./dog"
+import Cars from "./cars"
 
 const Blog = () => {
     const {path, url}=useRouteMatch()
