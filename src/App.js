@@ -6,7 +6,7 @@ import About from "./component/About"
 import Contact from "./component/Contact"
 import Navbar from "./component/Navbar"
 import "./App.css";
-import {AuthContextProvider} from "./Context/AuthContext"
+import {AuthContextProvider} from "./Context/authContext"
 import Admin from "./component/Admin"
 import PrivateRoute from "./component/PrivateRoute"
 import PrivateRoute2 from "./component/PrivateRoute2"

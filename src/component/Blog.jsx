@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link, BrowserRouter as Router, Route, Switch, useRouteMatch} from "react-router-dom"
-import Recipes from "./Recipes"
+import Recipes from "./recipes"
 import Dog from "./Dog"
 import Cars from "./Cars"
 

@@ -1,5 +1,5 @@
 import React,{useContext} from 'react'
-import { AuthContext } from '../Context/AuthContext'
+import { AuthContext } from '../Context/authContext'
 import {Redirect} from "react-router-dom"
 
 const Admin = () => {

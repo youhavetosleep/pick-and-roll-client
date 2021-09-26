@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import {AuthContext} from "../Context/AuthContext"
+import {AuthContext} from "../Context/authContext"
 import { BrowserRouter as Router, Route, Switch, Link, NavLink } from "react-router-dom";
-import logo from "../img/puzzle.webp"
+
 
 
 const Navbar = () => {
