@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import Home from "./component/Home"
-import Blog from "./component/Blog"
-import About from "./component/About"
-import Contact from "./component/Contact"
-import Navbar from "./component/Navbar"
-import "./App.css";
+import Home from "./component/home"
+import Blog from "./component/blog"
+import About from "./component/about"
+import Contact from "./component/contact"
+import Navbar from "./component/navbar"
+import "./app.css";
 import {AuthContextProvider} from "./Context/authContext"
-import Admin from "./component/Admin"
-import PrivateRoute from "./component/PrivateRoute"
-import PrivateRoute2 from "./component/PrivateRoute2"
+import Admin from "./component/admin"
+import PrivateRoute from "./component/privateRoute"
+import PrivateRoute2 from "./component/privateRoute2"
 
 
 function App() {
