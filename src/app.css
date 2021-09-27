@@ -1,36 +1,45 @@
 body {
   margin: 0px;
+  overflow-x:hidden;
 }
 
 nav {
-  background-color:rgba(46, 204, 113, 0.67);
+  background-color:rgb(243, 200, 18);
   display: flex;
   align-items: center;
   margin: 0px;
   height: 40px;
 }
 
+.nav-links {
+  display: flex;
+}
+
 .logo {
   text-decoration: none;
   font-size: 26px;
-  color: rgba(0, 0 ,0, 0.9);
+  color: white;
   margin-right: 16px;
+
 }
 
 button {
   border: solid, 1px, gray;
   text-decoration: none;
   background-color: transparent;
-  border-color: rgba(0, 0 ,0, 0.1);
-  color: rgba(0, 0 ,0, 0.5);
+  border-color: rgb(243, 200, 18);
+  color: white;
+
   padding: 5px 12px;
 }
 
 .link {
-   margin: 10px;
-   font-size: 18px;
-   text-decoration: none;
-   color: rgba(0, 0 ,0, 0.5);
+  text-align:end;
+  margin: 10px;
+  font-size: 18px;
+  text-decoration: none;
+  color: white;
+  margin-right: 2rem;
 }
 
 .link:hover {
@@ -38,5 +47,8 @@ button {
 }
 
 .active {
-  color: rgba(0, 0 ,0, 0.9);
+  color: white;
+  width: 85%;
+  margin-left: 1rem;
+  align-items: center;
 }
