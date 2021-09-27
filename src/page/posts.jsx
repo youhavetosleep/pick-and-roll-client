@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Edit = () => {
+const Posts = () => {
     return (
         <div>
             <h1>dog</h1>
@@ -8,4 +8,4 @@ const Edit = () => {
     )
 }
 
-export default Edit
+export default Posts
