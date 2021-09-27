@@ -9,13 +9,18 @@ const Navbar = () => {
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
     return (
         <nav>
-            <NavLink className="logo" to="/" >Brand-Logo</NavLink>
+            <NavLink className="logo" to="/" >Pick And Roll</NavLink>
             <div className="nav-links"> 
-                <NavLink className="link" to="/about">About</NavLink> 
-                <NavLink className="link" to="/contact">Contact</NavLink> 
-                <NavLink className="link" to="/blog">Blog</NavLink> 
-                <NavLink className="link" to="/admin">Admin</NavLink> 
-                <button onClick={()=>setIsLoggedIn(!isLoggedIn)}>{isLoggedIn? "logout": "login"}</button>
+                <NavLink className="link" to="/Recipe">Recipe</NavLink> 
+                <NavLink className="link" to="/Search">search</NavLink> 
+                <NavLink className="link" to="/Login">Login</NavLink> 
+                <button onClick={()=>setIsLoggedIn(!isLoggedIn)}>
+                    {isLoggedIn? 
+                    "logout"
+                    : 
+                    "login"
+                    }
+                    </button>
             </div>
         </nav>
     )

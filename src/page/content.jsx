@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Recipes = () => {
+const Content = () => {
     return (
         <div>
-            Hi
+            
         </div>
     )
 }
 
-export default Recipes
+export default Content
