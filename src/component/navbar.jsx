@@ -8,22 +8,39 @@ const Navbar = () => {
 
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
     return (
+        
         <nav>
-            <NavLink className="logo" to="/" >Pick And Roll</NavLink>
-            <div className="nav-links"> 
-                <NavLink className="link" to="/Recipe">Recipe</NavLink> 
-                <NavLink className="link" to="/Search">search</NavLink> 
-                <NavLink className="link" to="/Login">Login</NavLink> 
-                <button onClick={()=>setIsLoggedIn(!isLoggedIn)}>
-                    {isLoggedIn? 
-                    "logout"
-                    : 
-                    "login"
-                    }
-                    </button>
+            {!isLoggedIn ? 
+                <div className="beforeLoginView">
+                    <NavLink className="logo" to="/" >Pick And Roll</NavLink>
+
+                    <div className="nav-links"> 
+                    <button className="testbtn" onClick={()=>setIsLoggedIn(!isLoggedIn)}>test</button>
+                    <NavLink className="link" to="/Recipe">레시피</NavLink> 
+                    <NavLink className="link" to="/Search">검색</NavLink> 
+                    <NavLink className="link" to="/Login">로그인</NavLink> 
+                    </div>
+                </div>
+
+            :
+            <div className="afterLoginView">
+                <NavLink className="logo" to="/" >Pick And Roll</NavLink>
+                <div className="nav-links"> 
+                <button className="testbtn" onClick={()=>setIsLoggedIn(!isLoggedIn)}>test</button>
+                <NavLink className="link" to="/Recipe">레시피</NavLink> 
+                <NavLink className="link" to="/Search">검색</NavLink> 
+                <NavLink className="link" to="/postWrite">새 글 작성</NavLink>
+                <NavLink className="link" to="/users">사용자이름</NavLink> 
+                <NavLink className="link" to="/Login">로그아웃</NavLink>
+
+                </div>
             </div>
+            }
+
         </nav>
     )
 }
 
 export default Navbar
+
+
