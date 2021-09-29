@@ -27,7 +27,7 @@ const Navbar = () => {
                 <NavLink className="logo" to="/" >Pick And Roll</NavLink>
                 <div className="nav-links"> 
                 <button className="testbtn" onClick={()=>setIsLoggedIn(!isLoggedIn)}>test</button>
-                <NavLink className="link" to="/Recipe">레시피</NavLink> 
+                <NavLink className="link" to="/recipe">레시피</NavLink> 
                 <NavLink className="link" to="/Search">검색</NavLink> 
                 <NavLink className="link" to="/postWrite">새 글 작성</NavLink>
                 <NavLink className="link" to="/users">사용자이름</NavLink> 

@@ -10,6 +10,8 @@ import LoginForm from './component/login'
 import Signup from "./page/signup";
 import Users from './page/users';
 import PostWrite from './page/postWrite';
+import Recipe from "./page/recipe"
+import Footer from "./component/footer"
 
 function App() {
   return (
@@ -23,8 +25,11 @@ function App() {
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/users" component={Users} />
       <Route exact path="/postWrite" component={PostWrite} />
+      <Route exact path="/recipe" component={Recipe} />
       </Switch>
+     
     </Router>
+    <Footer />
     </AuthContextProvider>
     
   );
