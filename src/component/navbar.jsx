@@ -1,27 +1,27 @@
 import React, { useContext, useState } from 'react'
 import {AuthContext} from "../Context/authContext"
 import { BrowserRouter as Router, Route, Switch, Link, NavLink } from "react-router-dom";
+import LoginForm from './login';
 
 
 
 const Navbar = () => {
 
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
+    const [openLogin, setOpenLogin] = useState(false);
     return (
-        
         <nav>
             {!isLoggedIn ? 
                 <div className="beforeLoginView">
-                    <NavLink className="logo" to="/" >Pick And Roll</NavLink>
-
-                    <div className="nav-links"> 
-                    <button className="testbtn" onClick={()=>setIsLoggedIn(!isLoggedIn)}>test</button>
-                    <NavLink className="link" to="/Recipe">레시피</NavLink> 
-                    <NavLink className="link" to="/Search">검색</NavLink> 
-                    <NavLink className="link" to="/Login">로그인</NavLink> 
+                        <NavLink className="logo" to="/" >Pick And Roll</NavLink>
+                        <div className="nav-links"> 
+                        <button className="testbtn" onClick={()=>setIsLoggedIn(!isLoggedIn)}>test</button>
+                        <NavLink className="link" to="/Recipe">레시피</NavLink> 
+                        <NavLink className="link" to="/Search">검색</NavLink> 
+                        <div className="link" to="/Login" onClick={()=> setOpenLogin(true)} >로그인</div> 
+                        {openLogin ?  <LoginForm openLogin={openLogin} setOpenLogin={setOpenLogin} /> : null}
                     </div>
                 </div>
-
             :
             <div className="afterLoginView">
                 <NavLink className="logo" to="/" >Pick And Roll</NavLink>
@@ -36,7 +36,6 @@ const Navbar = () => {
                 </div>
             </div>
             }
-
         </nav>
     )
 }

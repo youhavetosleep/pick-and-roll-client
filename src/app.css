@@ -5,8 +5,6 @@ body {
 
 nav {
   background-color:rgb(243, 200, 18);
-
-  justify-content : space-between;
   align-items: center;
   margin: 0px;
   height: 40px;
@@ -49,6 +47,9 @@ nav {
   cursor: pointer;
 }
 
+div .link {
+  cursor: pointer;
+}
 
 .link {
   text-align:end;
