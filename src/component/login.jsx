@@ -101,8 +101,8 @@ const LoginForm = ({openLogin, setOpenLogin}) => {
 };
 
 const Modal = styled.div`
-width: 100%;
-height: 100%;
+width: 100vw;
+height: 100vh;
 position: fixed;
 top: 0;
 left: 0;
@@ -129,8 +129,8 @@ const LoginWrapper = styled.div`
     border-radius: 30px;
 `
 const LoginC = styled.div`
-    width : auto;
-    height : auto;
+    width : 400px;
+    height : 450px;
     display : flex;
     flex-direction: column;
     margin: auto;
