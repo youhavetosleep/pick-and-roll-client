@@ -5,44 +5,28 @@ import styled from "styled-components";
 import Swal from 'sweetalert2';
 
 
-const LoginForm = (props) => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-    const { Kakao } = window;
+const LoginForm = ({openLogin, setOpenLogin}) => {
 
     const history = useHistory();
-    function test () {
 
-        Kakao.Auth.login({
-            redirectUri : 'http://localhost:3000/login',
-            scope : 'account_email, profile_nickname',
-            success : function(authObj) {
-                console.log(authObj);
-                let code = new URL(window.location.href).searchParams.get("code");
-                console.log(code)
-                // Kakao.API.request({
-                //     url : '/v2/uesr/me',
-                //     success : res => {
-                //         console.log(res)
-                //         const kakao_account = res.kakao_account
-                //         console.log(kakao_account);
-                //     }
-                // })
-            }
-        })
-    }
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    // const [openLogin, setOpenLogin] = useState(false);
 
-    
-    const onChangeEmail = useCallback((event) => {
-        setEmail(event.target.value)
-    }, []);
+    // const { Kakao } = window;
+    // function test () {
+    //     Kakao.Auth.login({
+    //         redirectUri : 'http://localhost:3000/login',
+    //         scope : 'account_email, profile_nickname',
+    //         success : function(authObj) {
+    //             console.log(authObj);
+    //             let code = new URL(window.location.href).searchParams.get("code");
+    //             console.log(code)
+    //         }
+    //     })
+    // }
 
-    const onChangePassword = useCallback((event) => {
-        setPassword(event.target.value)
-    }, []);
-
-    const onSubmitForm = useCallback((event) => {
+    const logIn = (event) => {
         if (email === "" || password === "") {
             Swal.fire({
                 text: `이메일과 비밀번호를 모두 입력해주세요!`,
@@ -53,78 +37,113 @@ const LoginForm = (props) => {
         }
         event.preventDefault()
         console.log(email,password)
-    }, [email, password])
+    }
 
-    return (
-        <Form>
-            <Login>Login</Login>
-            <LoginC>
-                <InputC>
-                <Input 
-                type="text" 
-                placeholder="이메일을 입력해주세요" 
-                value={email} 
-                onChange={onChangeEmail} 
-                />
-                </InputC>
-                <InputC>
-                <Input 
-                type="password"
-                placeholder="비밀번호를 입력해주세요" 
-                value={password} 
-                onChange={onChangePassword}
-                onKeyPress={(event) => {
-                    if (event.key === "Enter") {
-                    onSubmitForm(event)
-                    }
-                }}
-                />
-                </InputC>
 
-                <LoginBtn onClick={onSubmitForm}
-                >Login
-                </LoginBtn>
-                <SignUpBtn>
-                    <p>회원가입을 원하시나요?</p>
-                    <div
-                    className="makeaccount"
-                    onClick={() => {
-                        history.push("/signup");
-                    }}
-                    >
-                    Sign Up
-                    </div>
-                </SignUpBtn>
-                <SocialLoginBtn onClick={test} >
-                    kakao
-                </SocialLoginBtn>
-            </LoginC>
-        </Form>
-    )
+    return openLogin ? (
+        <Modal>
+            <Left onClick={() => setOpenLogin(false)}></Left>
+            <Form >
+                <LoginWrapper>
+                    <Login>Login</Login>
+                    <LoginC>
+                        <InputC>
+                            <Input 
+                            type="text" 
+                            placeholder="이메일을 입력해주세요" 
+                            value={email} 
+                            onChange={(event)=> {
+                                setEmail(event.target.value)
+                            }} 
+                            />
+                        </InputC>
+                        <InputC>
+                            <Input 
+                            type="password"
+                            placeholder="비밀번호를 입력해주세요" 
+                            value={password} 
+                            onChange={(event)=> {
+                                setPassword(event.target.value)
+                            }} 
+                            onKeyPress={(event) => {
+                                if (event.key === "Enter") {
+                                    logIn(event)
+                                }
+                            }}
+                            />
+                        </InputC>
+
+                        <LoginBtn onClick={logIn}
+                        >Login
+                        </LoginBtn>
+                        <SignUpBtn onClick={() => setOpenLogin(false)}>
+                            <p>회원가입을 원하시나요?</p>
+                            <div
+                            className="makeaccount"
+                            onClick={() => {
+                                history.push("/signup");
+                            }}
+                            >
+                            Sign Up
+                            </div>
+                        </SignUpBtn>
+                        <SocialLoginBtn >
+                            kakao
+                        </SocialLoginBtn>
+                    </LoginC>
+                </LoginWrapper>
+            </Form>
+            <Right onClick={() => setOpenLogin(false)}></Right>
+        </Modal>
+    
+    ) : null;
+    
 };
 
-
-
+const Modal = styled.div`
+width: 100%;
+height: 100%;
+position: fixed;
+top: 0;
+left: 0;
+background: rgba(72, 72, 66, 0.5);
+display: flex;
+`
+const Left = styled.div`
+width : 35%;
+`
+const Right = styled.div`
+width : 35%;
+`
 const Form = styled.div`
-    padding-top: 60px;
+    width : auto;
+    padding-top : 200px;
     margin-bottom: 180px;
     display: flex;
     flex-direction: column;
-    
+`
+const LoginWrapper = styled.div`
+    width: 450px;
+    height: 500px;
+    background: white;
+    border-radius: 30px;
 `
 const LoginC = styled.div`
-    width : 500px;
-    height : 480px;
+    width : auto;
+    height : auto;
     display : flex;
     flex-direction: column;
     margin: auto;
     align-items: center;
     padding: 25px 0px;
+
 `
 const Login = styled.div`
     text-align : center;
     font-size :32px;
-    margin-bottom : 30px;
+    margin-bottom : 20px;
+    margin-top : 30px;
+
 `
 const InputC =styled.div`
     margin-top : 15px;
