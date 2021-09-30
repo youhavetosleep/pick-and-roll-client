@@ -5,7 +5,7 @@ import { FaFacebookSquare,FaPinterestSquare,FaGithub,FaTwitter } from 'react-ico
 const Main=styled.div`
     
     /* padding: 1rem;
-    background-color: white;
+    background-color: #696363;
     /* position: fixed; */
     position: relative;
 
