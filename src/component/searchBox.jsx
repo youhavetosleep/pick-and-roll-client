@@ -4,7 +4,7 @@ import {FaSearch} from "react-icons/fa"
 
 //아이콘 클릭 기능 enter했을 때 axios 작동하면서 리다이렉트 되는 기능
 
-const SearchBox_bg = ({showSearchBox,setShowSearchBox}) => {
+const SearchBox = ({showSearchBox,setShowSearchBox}) => {
 
     const SearchRedirect = (e) => {
         console.log(e.target.value)
@@ -110,4 +110,4 @@ const Wrapper = styled.div`
 `
 
 
-export default SearchBox_bg
+export default SearchBox
