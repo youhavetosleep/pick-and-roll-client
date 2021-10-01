@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled  from 'styled-components';
 import Swal from 'sweetalert2';
+
 const Signup = () => {
 
 const history = useHistory();

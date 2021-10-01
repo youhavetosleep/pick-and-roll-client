@@ -63,7 +63,7 @@ const LoginForm = ({openLogin, setOpenLogin}) => {
                             placeholder="비밀번호를 입력해주세요" 
                             value={password} 
                             onChange={(event)=> {
-                                setPassword(event.target.value)
+                                setPassword(event.target.value) 
                             }} 
                             onKeyPress={(event) => {
                                 if (event.key === "Enter") {
@@ -155,10 +155,10 @@ const Input = styled.input`
     align-items : center;
     padding: 15px 50px 10px 10px;  
     border-radius: 8px;
-    border: solid 2px #d2d2d2;
+    border: 2px solid  #d2d2d2;
 
     :focus {
-    border: solid 2px rgb(243, 200, 18);
+    border: 2px solid rgb(243, 200, 18);
     outline: none;
     }
     ::placeholder {

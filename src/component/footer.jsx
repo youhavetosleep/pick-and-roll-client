@@ -14,18 +14,18 @@ const Main=styled.div`
     bottom: 0;
 
     width: 100%;
-   
+
     border-top: solid 0.7mm #E7E9EB;
     display: flex;
     justify-content: center; 
     height: 100%;
-    
-  
+
+
 
     .container{
-     
+        
     }
-  
+
 
     p { margin-left: 70px;   padding-bottom:0px; margin-bottom:4px;}
 
@@ -53,9 +53,9 @@ const Main=styled.div`
 const Footer = () => {
     return (
         <Main>
-          
+            
         <footer className="container">
-           
+            
 <ul className="foote_bottom_ul_amrc">
 <li><a href="">Privacy</a></li>
 <li><a href="">Terms&Conditions</a></li>

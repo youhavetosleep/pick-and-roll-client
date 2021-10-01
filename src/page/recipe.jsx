@@ -12,38 +12,36 @@ const GlobalStyle = createGlobalStyle`
     margin:0;
     padding:0;
     box-sizing: border-box;
-  }
+    }
 
-  body {
+    body {
     font-family: sans-serif;
-  }
-`
+    }
+    `
 
-const WrapperImage = styled.section`
-  max-width: 70rem;
-  margin: 3rem auto;
-  display: grid;
-  grid-gap: 2.5em;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-auto-rows: 300px;
-  
+    const WrapperImage = styled.section`
+    max-width: 70rem;
+    margin: 3rem auto;
+    display: grid;
+    grid-gap: 2.5em;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: 300px;
+    `
 
-`
+    function Recipe() {
+    const [images, setImages] =useState([])
+    const [pageNumber, setPageNumber] = useState(1)
 
-function Recipe() {
-  const [images, setImages] =useState([])
-  const [pageNumber, setPageNumber] = useState(1)
 
-  
-     
+        
 //   &page=${pageNumber}&per_page=10
     const fetchImages =()=>{
         console.log(pageNumber)
-      axios.get(`https://api.unsplash.com/photos/random?client_id=bIq30-SkiyHZW9ZmQcG8Ndn4KNn5Ii_m9We-bKdXOlE&count=10`)
+        axios.get(`https://api.unsplash.com/photos/random?client_id=bIq30-SkiyHZW9ZmQcG8Ndn4KNn5Ii_m9We-bKdXOlE&count=10`)
     .then(res=>{
-       
-      setImages(photo =>[...photo, ...res.data])
-     
+        
+        setImages(photo =>[...photo, ...res.data])
+        
         })
         setPageNumber(pageNumber+1)
     }
@@ -52,31 +50,31 @@ function Recipe() {
         
         fetchImages();
         
-         },[])
-    
-  return (
+            },[])
+
+    return (
     <div className="App">
-     
-      <GlobalStyle></GlobalStyle>
-      <InfiniteScroll
+        
+        <GlobalStyle></GlobalStyle>
+        <InfiniteScroll
         dataLength={images.length}
         next={fetchImages}
         hasMore={true}
         loader={<Loading />}
 
-      >
-      
-      <WrapperImage >
-      {images.map(image=>(
-          <div key={image.id} >
+        >
+        
+        <WrapperImage >
+        {images.map(image=>(
+            <div key={image.id} >
         <Image url={image.urls.thumb} />
         </div>
-      ))}
-      </WrapperImage>
-      </InfiniteScroll>
-      
+        ))}
+        </WrapperImage>
+        </InfiniteScroll>
+        
     </div>
-  );
+    );
 }
 
 export default Recipe;
