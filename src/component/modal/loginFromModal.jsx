@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Swal from 'sweetalert2';
 
 
-const LoginForm = ({openLogin, setOpenLogin}) => {
+const LoginFormModal = ({openLogin, setOpenLogin}) => {
 
     const history = useHistory();
 
@@ -222,4 +222,4 @@ const SignUpBtn = styled.div`
 `
 
 
-export default LoginForm;
+export default LoginFormModal;

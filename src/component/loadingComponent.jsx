@@ -1,6 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const LoadingComponent = () => {
+    return (
+        <Loader>
+        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </Loader>
+    )
+}
+
 const Loader = styled.div`
 text-align:center;
 
@@ -59,16 +67,5 @@ text-align:center;
     transform: translate(24px, 0);
   }
 }
-
-
 `
-
-const Loading = () => {
-    return (
-        <Loader>
-        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        </Loader>
-    )
-}
-
-export default Loading
+export default LoadingComponent

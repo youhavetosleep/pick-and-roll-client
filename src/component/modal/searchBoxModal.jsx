@@ -4,7 +4,7 @@ import {FaSearch} from "react-icons/fa"
 
 //아이콘 클릭 기능 enter했을 때 axios 작동하면서 리다이렉트 되는 기능
 
-const SearchBox = ({showSearchBox,setShowSearchBox}) => {
+const SearchBoxModal = ({showSearchBox,setShowSearchBox}) => {
 
     const SearchRedirect = (e) => {
         console.log(e.target.value)
@@ -14,8 +14,6 @@ const SearchBox = ({showSearchBox,setShowSearchBox}) => {
             //axios 들어가는 곳 
         // 그 다음 리다이렉트
         }
-         
-        
     }
    
     return (
@@ -34,8 +32,6 @@ const SearchBox = ({showSearchBox,setShowSearchBox}) => {
              </div>
         </div>
         </Wrapper>
-        
-        
     )
 } 
 
@@ -43,17 +39,15 @@ const SearchBox = ({showSearchBox,setShowSearchBox}) => {
 const Wrapper = styled.div`
 .Background{
     background: rgba(0, 0, 0, 0.6);
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100vh;
   top: 0;
   left: 0;
   z-index: 10;
-  
-  
 }
 
-.modale:before {
+.modal:before {
   content: "";
   display: none;
   background: rgba(0, 0, 0, 0.6);
@@ -64,15 +58,18 @@ const Wrapper = styled.div`
   bottom: 0;
   z-index: 10;
 }
+
 .opened:before {
   display: block;
 }
+
 .opened .modal-dialog {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
   top: 20%;
 }
+
 .modal-dialog {
   background: #fefefe;
   border: #333333 solid 0px;
@@ -93,9 +90,11 @@ const Wrapper = styled.div`
   -o-transition: -o-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
 }
+
 .modal-body {
   padding: 20px;
 }
+
 .modal-body input{
   width:200px;
   padding:8px;
@@ -105,9 +104,7 @@ const Wrapper = styled.div`
   font-size:14px;
   font-weight:bold
 }
-
-  
 `
 
 
-export default SearchBox
+export default SearchBoxModal

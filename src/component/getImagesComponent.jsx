@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from "react"
-import Image from "./image"
-import Loading from "./loading"
+import ImageComponent from "./imageComponent"
+import LoadingComponent from "./loadingComponent"
 import axios from "axios"
 import styled from "styled-components"
 import InfiniteScroll from "react-infinite-scroll-component"
@@ -15,7 +15,7 @@ function GetImagesComponent () {
      
 //   &page=${pageNumber}&per_page=10
     const fetchImages =()=>{
-        console.log(pageNumber)
+        
       axios.get(`https://api.unsplash.com/photos/random?client_id=dllapZyq7HTMkM11dE1uhoBRzwWNupievUHo1BM2Nq8&count=10`)
         .then(res=>{
             setImages(photo =>[...photo,...res.data])
@@ -24,11 +24,10 @@ function GetImagesComponent () {
         
     }
 
-    useEffect(() => {
-        
+    useEffect ( () => {
         fetchImages();
         
-         },[])
+    }, [] )
     
   return (
     <div className="App">
@@ -38,22 +37,22 @@ function GetImagesComponent () {
         dataLength={images.length}
         next={fetchImages}
         hasMore={true}
-        loader={<Loading />}
-
+        loader={<LoadingComponent />}
       >
       
       <WrapperImage >
       {images.map(image=>(
           <div className="img-wrapper" key={image.id}
-          onMouseEnter={()=>setIsMouseOn(true)}
-         onMouseLeave={()=>setIsMouseOn(false)} >
-         <Image 
-         isMouseOn={isMouseOn}
-         
-         url={image.urls.thumb} /> 
+               onMouseEnter={()=>setIsMouseOn(true)}
+               onMouseLeave={()=>setIsMouseOn(false)} 
+          >
+            <ImageComponent 
+            isMouseOn={isMouseOn}
+            url={image.urls.thumb} 
+            /> 
         
-        <div className="btn-plus"><span draggable="false">레시피 정보</span></div>
-        </div>
+            <div className="btn-plus"><span draggable="false">레시피 정보</span></div>
+          </div>
       ))}
       
       </WrapperImage>
@@ -86,53 +85,40 @@ const WrapperImage = styled.section`
   grid-auto-rows: 300px;
   
    .img-wrapper{
-    /* width:100%;
-    height:100%; */
-    object-fit: cover;
-    border-radius: 25%;
-    cursor:pointer;
+      object-fit: cover;
+      border-radius: 25%;
+      cursor:pointer;
     }
     
     
 
     .darkness {
-        
-        
-        /* background:#000000; */
-        background-size: 100px 100px;
-        opacity:0;
-        transition:all .6s linear;
-        visibility: hidden;
+      background-size: 100px 100px;
+      opacity:0;
+      transition:all .6s linear;
+      visibility: hidden;
          
-       }
+      }
     
     .btn-plus {
-        
-        
-        
-         background:red;
-        
-         border-radius:50%;
-         text-align:center;
-         
-         opacity:0;
-         
-         transform:scaleY(1);
-         transition:all .3s linear;
-         /* -ms-overflow-style: none; */
-       }   
+      background:red;
+      border-radius:50%;
+      text-align:center;
+      opacity:0;   
+      transform:scaleY(1);
+      transition:all .3s linear;
+      }   
        
 
     .img-wrapper:hover .darkness{
-        
-        transform:scale(3);
-      }
+      transform:scale(3);
+    }
       
       
     .img-wrapper:hover .btn-plus {
-        opacity:1;
-        transform:scale(1);
-      } 
+      opacity:1;
+      transform:scale(1);
+    } 
 
 
 `
