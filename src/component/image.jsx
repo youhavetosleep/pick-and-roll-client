@@ -6,22 +6,53 @@ import styled from "styled-components"
 
 
 
-const Image = ({url,key}) => {
+const Image = ({url,key,isMouseOn}) => {
+    console.log(isMouseOn)
     return (
-        <Img key={key} src={url} alt=""/>
-        
-        )
+        <>
+        {isMouseOn?
+        <BackImg 
+        key={key}
+        className="drakness" 
+        style={{"background-image":`url(${url})`}}>
+            <span>레시피정보</span>
+            </BackImg>:
+            <Img 
+            key={key}
+            className="drakness" 
+            style={{"background-image":`url(${url})`}}>
+                </Img>}
+        </>
+    )
 }
 
 
 
-const Img = styled.img`
+const Img = styled.div`
    
     width: 100%;
     height: 100%;
     border-radius: 25%;
     object-fit: cover;
     border:solid 0.4mm #a89f9f;
+    background-size:100% 100%;
+    background-repeat: no-repeat;
 `
 
+const BackImg =styled.div`
+    width: 100%;
+    height: 100%;
+    border-radius: 25%;
+    object-fit: cover;
+    /* border:solid 0.4mm #a89f9f; */
+    background-size:100% 100%;
+    transition:all .6s linear;
+    background-repeat: no-repeat;
+    opacity:0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+`
 export default Image
