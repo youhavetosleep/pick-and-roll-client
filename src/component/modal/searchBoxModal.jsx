@@ -1,37 +1,62 @@
-import React from 'react'
+import React, {useRef, useContext, useState} from 'react'
+import {useHistory} from "react-router-dom";
 import styled from 'styled-components';
 import {FaSearch} from "react-icons/fa"
-
-//아이콘 클릭 기능 enter했을 때 axios 작동하면서 리다이렉트 되는 기능
+import {SearchValueContext} from "../../Context/searchValueContext"
+import { AuthContext } from "../../Context/authContext"
 
 const SearchBoxModal = ({showSearchBox,setShowSearchBox}) => {
-
+  
+  const history = useHistory()
+  const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
+  const {isValue, setIsValue} = useContext(SearchValueContext)
+  const [inputValue, setInputValue] = useState("")
+  
+  
     const SearchRedirect = (e) => {
-        console.log(e.target.value)
-        if (e.key === 'Enter') {
-            console.log(e.key)
-            console.log(e.target.value)
-            //axios 들어가는 곳 
-        // 그 다음 리다이렉트
+      
+        if(e.type === "click") {
+          history.push("/recipe_after_search")
+            setShowSearchBox(false)
+            setIsValue(inputValue)
+            setInputValue("")
+            return
         }
+
+        if (e.key === 'Enter') {
+            history.push("/recipe_after_search")
+            setShowSearchBox(false)
+            setIsValue(inputValue)
+            e.target.value=""
+        }
+        setInputValue(e.target.value)
     }
-   
+    
     return (
-        
-        <Wrapper>
+        <>
+        <Wrapper onSubmit={SearchRedirect}>
+          
         <div className={showSearchBox?"Background":null} onClick={()=> setShowSearchBox(false)}></div>
         <div className={showSearchBox? "opened" : "modal"} aria-hidden="true">
             <div className="modal-dialog">
                 <button onClick={()=> setShowSearchBox(false)} href="#" className="btn-close closemodale" aria-hidden="true">&times;</button>
                     
                 <div className="modal-body">
-                <input type="text" name="u" placeholder="검색" size="20" onKeyPress={(e)=>SearchRedirect(e)} /> 
-                <FaSearch onClick={SearchRedirect}></FaSearch><br />
+                <input type="text" 
+                       placeholder="검색"
+                       name="u" 
+                       size="20"
+                       value={inputValue}
+                       onChange={(e)=>setInputValue(e.target.value)}
+                       onKeyPress={(e)=>SearchRedirect(e)} 
+                       /> 
+                <FaSearch type="submit" onClick={(e)=>SearchRedirect(e)}></FaSearch><br />
             
                 </div>
              </div>
         </div>
         </Wrapper>
+       </>
     )
 } 
 
@@ -98,11 +123,15 @@ const Wrapper = styled.div`
 .modal-body input{
   width:200px;
   padding:8px;
-  border:1px solid #ddd;
   color:#888;
   outline:0;
   font-size:14px;
-  font-weight:bold
+  font-weight:bold;
+  border:none;
+  border-right:0px; 
+  border-top:0px; 
+
+
 }
 `
 

@@ -6,31 +6,28 @@ import styled from "styled-components"
 import InfiniteScroll from "react-infinite-scroll-component"
 
 
-function GetImagesComponent () {
+function GetImagesComponent ({isValue}) {
   const [images, setImages] =useState([])
   const [pageNumber, setPageNumber] = useState(1)
   const [isMouseOn, setIsMouseOn] = useState(false)
 
-  
+  console.log(isValue) // 이걸 값으로 api를 수정해야할 것 같은데 정확히는 알아봐야겠습니다.
      
 //   &page=${pageNumber}&per_page=10
     const fetchImages =()=>{
-        
       axios.get(`https://api.unsplash.com/photos/random?client_id=dllapZyq7HTMkM11dE1uhoBRzwWNupievUHo1BM2Nq8&count=10`)
         .then(res=>{
             setImages(photo =>[...photo,...res.data])
             setPageNumber(pageNumber+1)
         })
-        
     }
 
     useEffect ( () => {
         fetchImages();
-        
     }, [] )
     
   return (
-    <div className="App">
+    <div>
      
       <GlobalStyle>
       <InfiniteScroll
@@ -78,9 +75,9 @@ const GlobalStyle = styled.div`
 const WrapperImage = styled.section`
 
   max-width: 70rem;
-  margin: 3rem auto;
+  margin: 3rem 7rem;
   display: grid;
-  grid-gap: 2.5em;
+  grid-gap: 1em;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-rows: 300px;
   
