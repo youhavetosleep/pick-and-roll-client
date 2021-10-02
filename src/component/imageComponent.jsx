@@ -1,32 +1,25 @@
 import React from 'react'
 import styled from "styled-components"
 
-
-
-
-
-
-const Image = ({url,key,isMouseOn}) => {
-    console.log(isMouseOn)
+const ImageComponent = ({url,key,isMouseOn}) => {
+    
     return (
         <>
         {isMouseOn?
         <BackImg 
         key={key}
         className="drakness" 
-        style={{"background-image":`url(${url})`}}>
+        style={{"backgroundImage":`url(${url})`}}>
             <span>레시피정보</span>
             </BackImg>:
             <Img 
             key={key}
             className="drakness" 
-            style={{"background-image":`url(${url})`}}>
+            style={{"backgroundImage":`url(${url})`}}>
                 </Img>}
         </>
     )
 }
-
-
 
 const Img = styled.div`
    
@@ -55,4 +48,4 @@ const BackImg =styled.div`
 
     
 `
-export default Image
+export default ImageComponent

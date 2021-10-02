@@ -1,17 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Info from "./page/info"
-import Navbar from "./component/navbar"
+import Navbar from "./component/navbarComponent"
 import "./app.css";
 import {AuthContextProvider} from "./Context/authContext"
-import PrivateRoute from "./component/privateRoute"
-import PrivateRoute2 from "./component/privateRoute2"
-import LoginForm from './component/login'
+import LoginFormComponent from './component/modal/loginFromModal'
 import Signup from "./page/signup";
 import Users from './page/users';
 import PostWrite from './page/postWrite';
 import Recipe from "./page/recipe"
-import Footer from "./component/footer"
+import FooterComponent from './component/footerComponent';
 
 function App() {
   return (
@@ -29,7 +27,7 @@ function App() {
       </Switch>
      
     </Router>
-    <Footer />
+    <FooterComponent />
     </AuthContextProvider>
     
   );
