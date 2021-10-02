@@ -25,7 +25,7 @@ const Img = styled.div`
    
     width: 100%;
     height: 100%;
-    border-radius: 25%;
+    border-radius: 15%;
     object-fit: cover;
     border:solid 0.4mm #a89f9f;
     background-size:100% 100%;
@@ -35,7 +35,7 @@ const Img = styled.div`
 const BackImg =styled.div`
     width: 100%;
     height: 100%;
-    border-radius: 25%;
+    border-radius: 15%;
     object-fit: cover;
     /* border:solid 0.4mm #a89f9f; */
     background-size:100% 100%;

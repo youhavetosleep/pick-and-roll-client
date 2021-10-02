@@ -63,7 +63,7 @@ const LoginFormModal = ({openLogin, setOpenLogin}) => {
                             placeholder="비밀번호를 입력해주세요" 
                             value={password} 
                             onChange={(event)=> {
-                                setPassword(event.target.value)
+                                setPassword(event.target.value) 
                             }} 
                             onKeyPress={(event) => {
                                 if (event.key === "Enter") {
@@ -101,8 +101,8 @@ const LoginFormModal = ({openLogin, setOpenLogin}) => {
 };
 
 const Modal = styled.div`
-width: 100%;
-height: 100%;
+width: 100vw;
+height: 100vh;
 position: fixed;
 top: 0;
 left: 0;
@@ -129,8 +129,8 @@ const LoginWrapper = styled.div`
     border-radius: 30px;
 `
 const LoginC = styled.div`
-    width : auto;
-    height : auto;
+    width : 400px;
+    height : 450px;
     display : flex;
     flex-direction: column;
     margin: auto;
@@ -155,10 +155,10 @@ const Input = styled.input`
     align-items : center;
     padding: 15px 50px 10px 10px;  
     border-radius: 8px;
-    border: solid 2px #d2d2d2;
+    border: 2px solid  #d2d2d2;
 
     :focus {
-    border: solid 2px rgb(243, 200, 18);
+    border: 2px solid rgb(243, 200, 18);
     outline: none;
     }
     ::placeholder {
