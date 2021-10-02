@@ -25,7 +25,7 @@ function App() {
       <Route exact path="/postWrite" component={PostWrite} />
       <Route exact path="/recipe" component={Recipe} />
       </Switch>
-     
+
     </Router>
     <FooterComponent />
     </AuthContextProvider>

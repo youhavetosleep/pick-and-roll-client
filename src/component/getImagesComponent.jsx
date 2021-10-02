@@ -78,9 +78,9 @@ const GlobalStyle = styled.div`
 const WrapperImage = styled.section`
 
   max-width: 70rem;
-  margin: 3rem auto;
+  margin: 3rem 7rem;
   display: grid;
-  grid-gap: 2.5em;
+  grid-gap: 1em;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-rows: 300px;
   
