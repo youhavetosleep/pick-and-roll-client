@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import MenuComponent from '../component/menuComponent'
 
 const Users = () => {
     return (
-        <div>
-            <h1>About page</h1>
-            여기에서 자신의 레시피를 자랑해보세요.
-        </div>
+        <MenuComponent />
     )
-}
+};
+
+
 
 export default Users

@@ -29,7 +29,7 @@ function App() {
       <Route exact path="/recipe" component={Recipe} />
       <Route exact path="/recipe_after_search" component={RecipeAfterSearch} />
       </Switch>
-     
+
     </Router>
     <FooterComponent />
      </SearchValueContextProvider>
