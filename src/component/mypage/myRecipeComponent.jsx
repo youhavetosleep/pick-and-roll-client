@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import GetImagesComponent from '../getImagesComponent'
 
 const MyRecipeComponent = (props) => {
 
@@ -7,6 +8,7 @@ const MyRecipeComponent = (props) => {
   return (
     <Contents>
       <Title>나의 레시피</Title>
+      <GetImagesComponent />
     </Contents>
   )
 }

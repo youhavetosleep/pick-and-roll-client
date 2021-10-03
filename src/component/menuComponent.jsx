@@ -52,11 +52,11 @@ return (
 };
 
 const Wrap = styled.div`
-   position : relative; 
+  position : relative; 
   height : 700px;
   display : flex;
 
-   .showM {
+  .showM {
     transform : translateX(0);
     animation-duration : 1s;
     animation-name : show;
@@ -77,12 +77,12 @@ const Wrap = styled.div`
   }
 `
 const Menu = styled.div`
-   z-index : 1;
+  z-index : 1;
   left : 0;
   transform : translateX(-100%);
 
 
-  position : absolute; 
+  position : fixed; 
   margin : 0;
   border : 0;
   padding : 0;

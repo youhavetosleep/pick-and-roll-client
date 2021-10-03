@@ -8,6 +8,11 @@ nav {
   align-items: center;
   margin: 0px;
   height: 40px;
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1; */
 }
 
 .beforeLoginView {
@@ -69,4 +74,3 @@ div .link {
   margin-left: 1rem;
   align-items: center;
 }
-
