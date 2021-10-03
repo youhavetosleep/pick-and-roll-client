@@ -2,7 +2,7 @@ body {
   margin: 0px;
   overflow-x:hidden;
 }
-
+/* 
 nav {
   background-color:rgb(243, 200, 18);
   align-items: center;
@@ -62,7 +62,7 @@ div .link {
 
 .link:hover {
   text-decoration: none;
-}
+} */
 
 .active {
   color: white;

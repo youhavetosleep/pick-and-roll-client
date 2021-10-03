@@ -52,11 +52,11 @@ return (
 };
 
 const Wrap = styled.div`
-   position : relative; 
+  position : relative; 
   height : 700px;
   display : flex;
 
-   .showM {
+  .showM {
     transform : translateX(0);
     animation-duration : 1s;
     animation-name : show;
