@@ -220,6 +220,4 @@ const SignUpBtn = styled.div`
     }
     }
 `
-
-
 export default LoginFormModal;

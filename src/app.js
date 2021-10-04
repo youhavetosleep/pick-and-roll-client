@@ -10,7 +10,7 @@ import Users from './page/users';
 import PostWrite from './page/postWrite';
 import Recipe from "./page/recipe"
 import FooterComponent from './component/footerComponent';
-import RecipeAfterSearch from './page/recipeAfterSearch'
+import Search from './page/search'
 import { SearchValueContextProvider } from "./Context/searchValueContext"
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
       <Route exact path="/users" component={Users} />
       <Route exact path="/postWrite" component={PostWrite} />
       <Route exact path="/recipe" component={Recipe} />
-      <Route exact path="/recipe_after_search" component={RecipeAfterSearch} />
+      <Route exact path="/search/:id" component={Search} />
       </Switch>
 
     </Router>

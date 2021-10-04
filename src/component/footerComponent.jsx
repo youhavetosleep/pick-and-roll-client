@@ -29,15 +29,14 @@ const FooterComponent = () => {
 }
 
 const Main=styled.div`
-  
+    margin-top:50rem;
     position: relative;
     left: 0;
     bottom: 0;
-    width: 100%;
     border-top: solid 0.7mm #E7E9EB;
     display: flex;
     justify-content: center; 
-    height: 100%;
+    
   
     p { 
       margin-left: 70px;   

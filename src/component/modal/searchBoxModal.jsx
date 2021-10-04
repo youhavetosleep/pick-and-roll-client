@@ -1,35 +1,33 @@
-import React, {useRef, useContext, useState} from 'react'
-import {useHistory} from "react-router-dom";
-import styled from 'styled-components';
-import {FaSearch} from "react-icons/fa"
-import {SearchValueContext} from "../../Context/searchValueContext"
-import { AuthContext } from "../../Context/authContext"
+import React, { useContext, useState } from 'react'
+import {useHistory} from 'react-router-dom'
+import styled from 'styled-components'
+import {FaSearch} from 'react-icons/fa'
+import {SearchValueContext} from '../../Context/searchValueContext'
+import { AuthContext } from '../../Context/authContext'
 
 const SearchBoxModal = ({showSearchBox,setShowSearchBox}) => {
   
   const history = useHistory()
   const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
   const {isValue, setIsValue} = useContext(SearchValueContext)
-  const [inputValue, setInputValue] = useState("")
+  const [inputValue, setInputValue] = useState('')
   
   
     const SearchRedirect = (e) => {
-      
-        if(e.type === "click") {
-          history.push("/recipe_after_search")
-            setShowSearchBox(false)
-            setIsValue(inputValue)
-            setInputValue("")
-            return
+      if(e.type === 'click') {
+        setShowSearchBox(false)     
+        history.push(`/search/${inputValue}`)
+        setIsValue(inputValue)
+        setInputValue('')
+        return 
         }
 
         if (e.key === 'Enter') {
-            history.push("/recipe_after_search")
-            setShowSearchBox(false)
-            setIsValue(inputValue)
-            e.target.value=""
+          setShowSearchBox(false)
+          history.push(`/search/${inputValue}`)
+          setIsValue(inputValue)
+          setInputValue('')  
         }
-        setInputValue(e.target.value)
     }
     
     return (
@@ -42,15 +40,17 @@ const SearchBoxModal = ({showSearchBox,setShowSearchBox}) => {
                 <button onClick={()=> setShowSearchBox(false)} href="#" className="btn-close closemodale" aria-hidden="true">&times;</button>
                     
                 <div className="modal-body">
-                <input type="text" 
-                       placeholder="검색"
-                       name="u" 
-                       size="20"
-                       value={inputValue}
-                       onChange={(e)=>setInputValue(e.target.value)}
-                       onKeyPress={(e)=>SearchRedirect(e)} 
-                       /> 
-                <FaSearch type="submit" onClick={(e)=>SearchRedirect(e)}></FaSearch><br />
+                <input 
+                  type="text" 
+                  placeholder="검색"
+                  name="u" 
+                  size="20"
+                  value={inputValue}
+                  onChange={(e)=>setInputValue(e.target.value)}
+                  onKeyPress={(e)=>SearchRedirect(e)} 
+                  />     
+              <FaSearch type="submit" onClick={SearchRedirect}/>
+               <br />
             
                 </div>
              </div>
@@ -63,7 +63,7 @@ const SearchBoxModal = ({showSearchBox,setShowSearchBox}) => {
 
 const Wrapper = styled.div`
 .Background{
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(66, 65, 65, 0.4);
   position: fixed;
   width: 100%;
   height: 100vh;
