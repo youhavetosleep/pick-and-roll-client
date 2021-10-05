@@ -7,8 +7,9 @@ const MyRecipeComponent = (props) => {
 
   return (
     <Contents>
-      <Title>나의 레시피</Title>
+      <TitleWrap><Title>나의 레시피</Title></TitleWrap>
       <GetImagesComponent />
+
     </Contents>
   )
 }
@@ -19,7 +20,15 @@ const Contents = styled.div`
   padding : 0;
 `
 
+const TitleWrap = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 const Title = styled.div`
+  width : 200px;
   align-items : center;
   text-align: center;
   border: solid 1px;
@@ -30,5 +39,8 @@ const Title = styled.div`
   padding-top : 6px;
 `
 
+const BtnWrap = styled.div`
+width : 10px;
 
+`
 export default MyRecipeComponent;

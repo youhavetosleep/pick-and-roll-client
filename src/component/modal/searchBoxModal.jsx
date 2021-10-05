@@ -42,14 +42,14 @@ const SearchBoxModal = ({showSearchBox,setShowSearchBox}) => {
                 <button onClick={()=> setShowSearchBox(false)} href="#" className="btn-close closemodale" aria-hidden="true">&times;</button>
                     
                 <div className="modal-body">
-                <input type="text" 
-                       placeholder="검색"
-                       name="u" 
-                       size="20"
-                       value={inputValue}
-                       onChange={(e)=>setInputValue(e.target.value)}
-                       onKeyPress={(e)=>SearchRedirect(e)} 
-                       /> 
+              <input type="text" 
+                      placeholder="검색"
+                      name="u" 
+                      size="20"
+                      value={inputValue}
+                      onChange={(e)=>setInputValue(e.target.value)}
+                      onKeyPress={(e)=>SearchRedirect(e)} 
+                      /> 
                 <FaSearch type="submit" onClick={(e)=>SearchRedirect(e)}></FaSearch><br />
             
                 </div>

@@ -1,8 +1,8 @@
 import React from 'react'
-import GetImagesComponent from "../component/getImagesComponent"
+import GetImagesComponent from '../component/getImagesComponent'
 
 const Recipe = () => {
-    return <GetImagesComponent />
+  return <GetImagesComponent />
 }
 
 export default Recipe

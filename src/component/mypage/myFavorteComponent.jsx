@@ -7,7 +7,7 @@ const MyFavorteComponent = (props) => {
 
   return (
     <Contents>
-      <Title>즐겨찾기</Title>
+      <TitleWrap><Title>즐겨찾기</Title></TitleWrap>
       <GetImagesComponent />
     </Contents>
   )
@@ -18,8 +18,15 @@ const Contents = styled.div`
   margin : 0;
   padding : 0;
 `
+const TitleWrap = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 const Title = styled.div`
+  width : 200px;
   align-items : center;
   text-align: center;
   border: solid 1px;

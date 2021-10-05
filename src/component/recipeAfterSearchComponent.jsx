@@ -7,7 +7,7 @@ const RecipeAfterSearchComponent = () => {
   
   const {isValue, setIsValue} = useContext(SearchValueContext)
 
- 
+
   return (
     <>
     <Wrapper>
@@ -17,7 +17,7 @@ const RecipeAfterSearchComponent = () => {
       <h4 onClick={()=>console.log(isValue)}>{}개의 결과가 있습니다.</h4>
     </Wrapper>
     <GetImagesComponent isValue={isValue}></GetImagesComponent>
-   </>
+  </>
   )
 }
 
