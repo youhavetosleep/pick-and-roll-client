@@ -1,10 +1,16 @@
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router';
-import styled  from 'styled-components';
-import Swal from 'sweetalert2';
 
-const PostWrite = (props) => {
-  const postInfo = {
+import styled  from 'styled-components';
+
+import Swal from 'sweetalert2';
+import { BsUpload } from 'react-icons/bs'
+
+import ContentImgComponent from '../component/ImgEncoding/contentImgsComponent'
+import MainImgComponent from '../component/ImgEncoding/mainImgComponent'
+
+const Write = (props) => {
+  const Info = {
     title: "",
     introduction: "",
     category: "",
@@ -14,6 +20,7 @@ const PostWrite = (props) => {
     contentImgs: [],
     ingredients: [[1,"",""],[2,"",""],[3,"",""]]
   }
+  const [postInfo, setPostInfo] = useState(Info)
   const history = useHistory();
 
 // 회원가입 데이터
@@ -37,10 +44,16 @@ const _pwChk = useRef();
 const _nick = useRef();
 const _des = useRef();
 
-
-
-
-
+const {
+  title,
+  introduction,
+  category,
+  requiredTime,
+  contents,
+  mainImg,
+  contentImgs,
+  ingredients
+} = postInfo
 
 
 // 회원가입 버튼 
@@ -79,20 +92,10 @@ const signUp = (event) => {
     history.push('/')
 }
 
+//이미지 파일 변환함수
 
 
-const {
-  title,
-  introduction,
-  category,
-  requiredTime,
-  contents,
-  mainImg,
-  contentImgs,
-  ingredients
-} = postInfo
-
-  return (
+return (
     <>
     <Wrapper>
     <TitleArea>
@@ -135,18 +138,13 @@ const {
             </CheckText>
         </FormGroup>
         <FormGroup>
-            <Labal> 완성 사진
+            <Labal> 메인 사진
                 <span className = 'require' >*</span>
             </Labal>
-            <Input                     
-                type="text" 
-                placeholder="사진을 넣어주세요" 
-                onChange = {(e) => {
-                    setPwCheck(e.target.value)
-                }}
-                ref={_pwChk}
-                
-            />
+            <MainImgComponent 
+              postInfo={postInfo} 
+              setPostInfo={setPostInfo}
+              />
             <CheckText>
                 {messagePwCheck}
             </CheckText>
@@ -189,9 +187,9 @@ const {
             <Labal>요리 재료
                 <span className = 'require' >*</span>
             </Labal>
-            { ingredients.map( ingredient => (
-              <InlineBox>
-              <a>{ingredient[0]}.</a>  
+            { ingredients.map( (ingredient, idx) => (
+              <InlineBox key={idx}>
+              <span>{ingredient[0]}.</span>  
               <Input 
               type="text" 
               // value={ingredient[1]}
@@ -216,9 +214,9 @@ const {
             <Labal>요리 방법
                 <span className = 'require' >*</span>
             </Labal>
-            { contents.map( content => (
-              <InlineBox>
-              <a>{content[0]}.</a>  
+            { contents.map( (content, idx) => (
+              <InlineBox key={idx}>
+              <span>{content[0]}.</span>  
               <Textarea 
               type="text" 
               // value={content[1]}
@@ -236,7 +234,7 @@ const {
             <Labal>요리 사진
                 <span className = 'require' >*</span>
             </Labal>
-            
+              <ContentImgComponent postInfo={postInfo} setPostInfo={setPostInfo}></ContentImgComponent>
             <CheckText>
                 {messageDescription}
             </CheckText>
@@ -373,9 +371,6 @@ const InlineBox = styled.div`
   display: inline-block;
   a{
     font-size: 30px;
-  }
-		
-		
+  }		
 `
-
-export default PostWrite;
+export default Write;

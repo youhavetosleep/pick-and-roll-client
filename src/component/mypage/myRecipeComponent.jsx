@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 const MyRecipeComponent = (props) => {
 
-
   return (
     <Contents>
       <Title>나의 레시피</Title>
@@ -27,6 +26,5 @@ const Title = styled.div`
   height : 30px;
   padding-top : 6px;
 `
-
 
 export default MyRecipeComponent;

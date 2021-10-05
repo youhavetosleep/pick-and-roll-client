@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react"
-import ImageComponent from "./imageComponent"
-import LoadingComponent from "./loadingComponent"
-import axios from "axios"
-import styled from "styled-components"
-import InfiniteScroll from "react-infinite-scroll-component"
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import styled from 'styled-components'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
-function GetImagesComponent({ isValue }) {
+import ImageComponent from './imageComponent'
+import LoadingComponent from './loadingComponent'
+
+function GetImagesComponent ({ isValue }) {
+
   const [images, setImages] = useState([])
   const [pageNumber, setPageNumber] = useState(1)
   const [isMouseOn, setIsMouseOn] = useState(false)
-  
-  console.log(isValue) // 이걸 값으로 api를 수정해야할 것 같은데 정확히는 알아봐야겠습니다.
-
+ 
   //   &page=${pageNumber}&per_page=10
   const fetchImages = () => {
     axios.get(`https://api.unsplash.com/photos/random?client_id=dllapZyq7HTMkM11dE1uhoBRzwWNupievUHo1BM2Nq8&count=10`)
@@ -28,7 +28,6 @@ function GetImagesComponent({ isValue }) {
 
   return (
     <div>
-
       <GlobalStyle>
         <InfiniteScroll
           dataLength={images.length}
@@ -36,22 +35,20 @@ function GetImagesComponent({ isValue }) {
           hasMore={true}
           loader={<LoadingComponent />}
         >
-
           <WrapperImage >
-            {images.map(image => (
-              <div className="img-wrapper" key={image.id}
-                onMouseEnter={() => setIsMouseOn(true)}
-                onMouseLeave={() => setIsMouseOn(false)}
-              >
-                <ImageComponent
-                  isMouseOn={isMouseOn}
-                  url={image.urls.thumb}
-                />
-
-                <div className="btn-plus"><span draggable="false">레시피 정보</span></div>
-              </div>
-            ))}
-
+          { images.map(image => (
+            <div className='img-wrapper' key={image.id}
+              onMouseEnter={() => setIsMouseOn(true)}
+              onMouseLeave={() => setIsMouseOn(false)} 
+            >
+            <ImageComponent 
+              isMouseOn={isMouseOn}
+              url={image.urls.thumb} 
+            /> 
+            
+              <div className="btn-plus"><span draggable="false">레시피 정보</span></div>
+            </div>
+          ))}
           </WrapperImage>
         </InfiniteScroll>
       </GlobalStyle>

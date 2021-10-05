@@ -1,20 +1,18 @@
 import React , { useState,useRef, useEffect } from 'react'
 import styled from 'styled-components';
+
 import MyFavorteComponent from '../component/mypage/myFavorteComponent'
 import MyInfoComponent from '../component/mypage/myInfoComponent'
 import MyRecipeComponent from '../component/mypage/myRecipeComponent'
 
 const MenuComponent = (props) => {
 
-  const [page, setPage] = useState('favorite')
-
+  const [page, setPage] = useState('myInfo')
   const [show, setShow] = useState(false)
 
   const changeFavorite = () => setPage('favorite')
   const changeMyRecipe = () => setPage('myRecipe')
   const changeMyInfo = () => setPage('myInfo')
-  
-
   // transform의 translateX를 0으로 설정 
 
   useEffect(()=> {
@@ -77,11 +75,9 @@ const Wrap = styled.div`
   }
 `
 const Menu = styled.div`
-   z-index : 1;
+  z-index : 1;
   left : 0;
   transform : translateX(-100%);
-
-
   position : absolute; 
   margin : 0;
   border : 0;
@@ -112,7 +108,7 @@ const List = styled.div`
 
   margin-bottom : 5px;
   :hover {
-      background-color: grey;
+    background-color: grey;
 }
 `
 // 초록색의 포지션을 먹인다.
