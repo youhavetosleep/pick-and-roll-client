@@ -27,10 +27,10 @@ const ContentImgsComponent = ({ postInfo, setPostInfo }) => {
     
     const form = new FormData()
         form.append("file", newFile)
-        form.append("upload_preset", "ToPublicUrl")
+        form.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET_CONTENT)
         form.append('name', "hi")
       
-       await axios.post('https://api.cloudinary.com/v1_1/dlkl7penh/image/upload',form)
+       await axios.post(process.env.REACT_APP_CLOUDINARY_URL, form)
         .then(res=>{
             console.log(5, res)
         })
