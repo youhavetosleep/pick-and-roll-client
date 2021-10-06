@@ -18,6 +18,7 @@ ReactDOM.render(
     </AccessTokenContextProvider>
   </AuthContextProvider>,
   document.getElementById('root')
+  
 );
 
 // If you want to start measuring performance in your app, pass a function
