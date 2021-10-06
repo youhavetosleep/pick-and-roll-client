@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { useHistory } from 'react-router'
-import styled from 'styled-components'
+import styled  from 'styled-components'
 import Swal from 'sweetalert2'
+import axios from 'axios'
+
 const SignupComponent = () => {
   const history = useHistory()
 
@@ -73,7 +75,7 @@ const SignupComponent = () => {
   }
 
   // 회원가입 버튼
-  const signUp = (event) => {
+  const signUp = async (event) => {
     if (email === '' || !email_Reg.test(email)) {
       _email.current.focus()
       setMessageEmail('이메일 형식에 맞게 작성해 주시기 바랍니다!')
@@ -97,17 +99,30 @@ const SignupComponent = () => {
       setMessageDescription('자기소개를 입력해주세요!')
       return
     }
-    //preventDefault는 창이 새로 고침되는 것을 막기 위해서
-    event.preventDefault()
-    console.log(email, password, nickname, description)
-    // 마지막으로 axios로 데이터를 넘겨준다.
-    Swal.fire({
-      title: '회원가입이 완료되었습니다.',
-      text: `모든 레시피를 확인해보세요! `,
-      confirmButtonColor: '#d6d6d6',
-      confirmButtonText: '확인',
-    })
-    history.push('/')
+ 		//preventDefault는 창이 새로 고침되는 것을 막기 위해서 
+      event.preventDefault()
+      // console.log(email, password, nickname, description)
+      // 마지막으로 axios로 데이터를 넘겨준다. 
+
+      await axios.post('https://localhost:4000/users/signUp', {
+        email,
+        password,
+        name: nickname,
+        description
+      }, {
+        'Content-Type': 'application/json'
+      })
+      .then((res) => {
+        console.log(res);
+      })
+
+      Swal.fire({
+        title: '회원가입이 완료되었습니다.',
+        text: '모든 레시피를 확인해보세요!',
+        confirmButtonColor: '#d6d6d6',
+        confirmButtonText: '확인',
+      })
+      history.push('/')
   }
 
   return (
@@ -315,7 +330,6 @@ const Textarea = styled.textarea`
     color: #b5b5b5;
   }
 `
-
 const SignupBtn = styled.button`
   width: 366px;
   text-align: center;

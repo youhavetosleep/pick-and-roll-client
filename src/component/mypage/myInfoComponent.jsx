@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
 import { FaMarker, FaKey } from 'react-icons/fa'
+import axios from 'axios'
+import { UserContext } from '../../Context/userContext'
 
 const MyInfoComponent = (props) => {
   const [nickname, setNickname] = useState('김코딩')
@@ -10,6 +12,40 @@ const MyInfoComponent = (props) => {
 
 
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
+
+  const { userInfo, setUserInfo } = useContext(UserContext) 
+  // const getUserInfo = async () => {
+  //   await axios.get(`https://localhost:4000/users/${}`, {
+  //     withCredentials: true
+  //   })
+  //   .then((res) => {
+  //     console.log('res : ', res)
+  //     const { id, email, name, description, createdAt } = res.data.data.userData
+  //     setUserInfo({ id, email, name, description, createdAt })
+  //   })
+  // }
+
+
+  // return (
+  //   <Contents>
+  //     <Title>나의 정보</Title>
+  //     <Info>
+  //       <Profile></Profile>
+  //       <Card>
+  //         <Name>{userInfo.name}</Name>
+  //         <Description>
+  //           {userInfo.description}
+  //         </Description>
+  //         <BottomContents>
+  //           <CreateDate>활동 시작일<br />{userInfo.createdAt}</CreateDate>
+  //           <Email>이메일<br />{userInfo.email}</Email>
+  //         </BottomContents>
+  //       </Card>
+  //     </Info>
+  //   </Contents>
+  // )
+
+
 
   const infoEdit = () => {
     setEditMode(!editMode)
@@ -137,11 +173,12 @@ const MyInfoComponent = (props) => {
               </ReviseText>
           </ReviseForm>
 
-        </BtnWrap>
-      </Info>
+        </BtnWrap>     
+        </Info>
     </Contents>
-  )
+        )
 }
+
 
 const Contents = styled.div`
   flex-direction: column;
@@ -266,6 +303,7 @@ const Fixed = styled.div`
 const Description = styled.div`
   padding-bottom: 5px;
 `
+
 const BottomContents = styled.div`
   display: flex;
   @media (max-width: 1200px) {

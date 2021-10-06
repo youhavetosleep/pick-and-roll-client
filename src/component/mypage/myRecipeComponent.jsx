@@ -9,7 +9,6 @@ const MyRecipeComponent = (props) => {
     <Contents>
       <TitleWrap><Title>나의 레시피</Title></TitleWrap>
       <GetImagesComponent />
-
     </Contents>
   )
 }
@@ -39,8 +38,5 @@ const Title = styled.div`
   padding-top : 6px;
 `
 
-const BtnWrap = styled.div`
-width : 10px;
 
-`
 export default MyRecipeComponent;

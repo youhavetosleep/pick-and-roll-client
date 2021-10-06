@@ -1,26 +1,37 @@
-import React, { useContext, useState,useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { AuthContext } from '../Context/authContext'
 import { NavLink as NavLinkLogo } from 'react-router-dom'
 import { NavLink as NavLinkElement } from 'react-router-dom'
+import axios from 'axios'
+import { FaAlignJustify } from 'react-icons/fa'
+import { AuthContext } from '../Context/authContext'
+import { UserContext } from '../Context/userContext'
 import LoginFormModal from './modal/loginFromModal'
 import SearchBoxModal from './modal/searchBoxModal'
 import MenuModal from './modal/menuModal'
-import { FaAlignJustify } from 'react-icons/fa'
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ handleLogin, handleLogout }) => {
+
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext)
+	const { userInfo, setUserInfo } = useContext(UserContext);
   const [openLogin, setOpenLogin] = useState(false)
-  const [openMenu, setOpenMenu] = useState(false)
   const [showSearchBox, setShowSearchBox] = useState(false)
-
+  const [openMenu, setOpenMenu] = useState(false)
 
   const changeMenu = () => {
     setOpenMenu(!openMenu)
     console.log(openMenu)
   }
-  return (
-    <Nav>
+
+	const logout = async () => {
+		await axios.post('https://localhost:4000/users/logout')
+		.then((res) => {	
+      handleLogout()
+      setOpenLogin(false)
+		})
+	}
+    return (
+      <Nav>
       {!isLoggedIn ? (
         <BeforeLoginView>
           <Logo className="logo" to="/">
@@ -39,11 +50,12 @@ const NavbarComponent = () => {
               showSearchBox={showSearchBox}
               setShowSearchBox={setShowSearchBox}
             />
-            <ChangeClick to="/Login" onClick={() => setOpenLogin(true)}>
+            <ChangeClick to="/" onClick={() => setOpenLogin(true)}>
               로그인
             </ChangeClick>
             {openLogin ? (
               <LoginFormModal
+                handleLogin ={handleLogin}
                 openLogin={openLogin}
                 setOpenLogin={setOpenLogin}
               />
@@ -58,7 +70,7 @@ const NavbarComponent = () => {
         </BeforeLoginView>
       ) : (
         <AfterLoginView>
-          <Logo to="/">Pick And Roll</Logo>
+          <Logo to="/">Pick & Roll</Logo>
           <MenuLinks>
             <TestBtn onClick={() => setIsLoggedIn(!isLoggedIn)}>test</TestBtn>
             <NavElement to="/recipe">레시피</NavElement>
@@ -69,9 +81,9 @@ const NavbarComponent = () => {
               showSearchBox={showSearchBox}
               setShowSearchBox={setShowSearchBox}
             />
-            <NavElement to="/postWrite">새 글 작성</NavElement>
-            <NavElement to="/users">사용자이름</NavElement>
-            <NavElement to="/Login">로그아웃</NavElement>
+            <NavElement to='/write'>새 글 작성</NavElement>
+            <NavElement to={`/mypage/${userInfo.email}`}>{userInfo.name}님</NavElement>
+            <NavElement to="/" onClick={logout}>로그아웃</NavElement>
           </MenuLinks>
           <MenuIcon onClick={changeMenu}>
             <FaAlignJustify />
@@ -117,7 +129,6 @@ const MenuIcon = styled.div`
   display: none;
   height: 25px;
   margin-right: 8px;
-
   @media (max-width: 750px) {
     display: inline-block;
     color: white;

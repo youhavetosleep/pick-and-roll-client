@@ -1,20 +1,18 @@
 import React , { useState,useRef, useEffect } from 'react'
 import styled from 'styled-components';
+
 import MyFavorteComponent from '../component/mypage/myFavorteComponent'
 import MyInfoComponent from '../component/mypage/myInfoComponent'
 import MyRecipeComponent from '../component/mypage/myRecipeComponent'
 
 const MenuComponent = (props) => {
 
-  const [page, setPage] = useState('favorite')
-
+  const [page, setPage] = useState('myInfo')
   const [show, setShow] = useState(false)
 
   const changeFavorite = () => setPage('favorite')
   const changeMyRecipe = () => setPage('myRecipe')
   const changeMyInfo = () => setPage('myInfo')
-  
-
   // transform의 translateX를 0으로 설정 
 
   useEffect(()=> {
@@ -131,7 +129,7 @@ const List = styled.div`
 
   margin-bottom : 5px;
   :hover {
-      background-color: grey;
+    background-color: grey;
 }
 
 @media (max-width: 1200px) {
