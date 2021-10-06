@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
-
+import {FaRegTimesCircle} from 'react-icons/fa'
 const LoginFormModal = ({ handleLogin, openLogin, setOpenLogin }) => {
   const history = useHistory()
 
@@ -94,6 +94,7 @@ const LoginFormModal = ({ handleLogin, openLogin, setOpenLogin }) => {
               </div>
             </SignUpBtn>
             <SocialLoginBtn>kakao</SocialLoginBtn>
+              <CancelBtn onClick={() => setOpenLogin(false)} ><FaRegTimesCircle /></CancelBtn>
           </LoginC>
         </LoginWrapper>
       </Form>
@@ -103,6 +104,7 @@ const LoginFormModal = ({ handleLogin, openLogin, setOpenLogin }) => {
 }
 
 const Modal = styled.div`
+  z-index : 999;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -218,6 +220,15 @@ const SignUpBtn = styled.div`
       font-weight: bold;
     }
   }
+`
+
+const CancelBtn = styled.div`
+margin-top: 25px;
+color : #b8b8b8;
+font-size:20px;
+:hover {
+  color: rgb(237, 199, 32);
+}
 `
 
 export default LoginFormModal

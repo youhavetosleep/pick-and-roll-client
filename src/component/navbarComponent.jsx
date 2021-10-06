@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { NavLink as NavLinkLogo } from 'react-router-dom'
 import { NavLink as NavLinkElement } from 'react-router-dom'
@@ -35,7 +35,7 @@ const NavbarComponent = ({ handleLogin, handleLogout }) => {
       {!isLoggedIn ? (
         <BeforeLoginView>
           <Logo className="logo" to="/">
-            Pick And Roll
+            Pick & Roll
           </Logo>
 
           <MenuLinks>
@@ -98,9 +98,10 @@ const NavbarComponent = ({ handleLogin, handleLogout }) => {
 }
 
 const Nav = styled.nav`
-  background-color: rgb(243, 200, 18);
-  align-items: center;
+  background-color: white;
   margin: 0px;
+  /* border-bottom : solid 1px; */
+  box-shadow: 0px 1px 10px 1px rgb(243, 200, 18);
 `
 const MenuLinks = styled.div`
   display: flex;
@@ -112,6 +113,7 @@ const BeforeLoginView = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height : 70px;
   @media (max-width: 750px) {
     height: 43px;
   }
@@ -120,6 +122,7 @@ const AfterLoginView = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height : 70px;
   @media (max-width: 750px) {
     height: 43px;
   }
@@ -131,47 +134,63 @@ const MenuIcon = styled.div`
   margin-right: 8px;
   @media (max-width: 750px) {
     display: inline-block;
-    color: white;
+    color: rgb(243, 200, 18);
     font-size: 25px;
   }
 `
 
 const Logo = styled(NavLinkLogo)`
   text-decoration: none;
-  font-size: 26px;
-  color: white;
-  margin-right: 16px;
+  font-size: 40px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight:bold;
+  color: rgb(243, 200, 18);
+  margin-left: 16px;
+  @media (max-width: 1200px) {
+  margin-left: 2px;
+  font-size: 30px;
+}
 `
 const ChangeClick = styled.div`
   text-align: end;
-  margin: 10px;
-  font-size: 18px;
+  margin: 10px 15px 10px 15px;
+  font-size: 15px;
+  padding : 10px 15px 10px 15px ;
+  font-family: 'Noto Sans KR', sans-serif;
   text-decoration: none;
-  color: white;
-  margin-right: 2rem;
+  color: rgb(243, 200, 18);
   :hover {
     cursor: pointer;
+    background-color:rgb(243, 200, 18);
+    color : white;
+    border-radius : 10%;
+    font-weight: bold;
   }
 `
 
 const NavElement = styled(NavLinkElement)`
   text-align: end;
-  margin: 10px;
-  font-size: 18px;
+  margin: 10px 15px 10px 15px;
+  font-size: 15px;
+  padding : 10px 15px 10px 15px ;
+  font-family: 'Noto Sans KR', sans-serif;
   text-decoration: none;
-  color: white;
-  margin-right: 2rem;
+  color: rgb(243, 200, 18);
   :hover {
     cursor: pointer;
+    background-color:rgb(243, 200, 18);
+    color : white;
+    border-radius : 10%;
+    font-weight: bold;
   }
 `
 const TestBtn = styled.button`
     border: solid, 1px, gray;
     text-decoration: none;
-    background-color: rgb(255, 120, 47);
+    background-color: rgb(235, 235, 235);
     height: 25px;
     margin-top: 8px;
-    color: white;
+    color: rgb(243, 200, 18);
     border: 1px solid transparent;
     padding: 5px 12px;
   

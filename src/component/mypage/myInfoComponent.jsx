@@ -1,19 +1,25 @@
-import React, { useState, useEffect,useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
 import { FaMarker, FaKey } from 'react-icons/fa'
 import axios from 'axios'
 import { UserContext } from '../../Context/userContext'
 
-const MyInfoComponent = (props) => {
-  const [nickname, setNickname] = useState('김코딩')
-  const [description, SetDescription] = useState('자기소개 입니다.')
+const MyInfoComponent = () => {
+  const { userInfo, setUserInfo } = useContext(UserContext)
+  const { id, email, createdAt } = userInfo
+
+
+  const [changeNickname, setChangeNickname] = useState('')
+  const [changeDescription, setChangeDescription] = useState('자기소개 입니다.')
+
   const [editMode, setEditMode] = useState(false)
+  
+  
 
-
+  // 닉네임 유효성 감사 
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
 
-  const { userInfo, setUserInfo } = useContext(UserContext) 
   // const getUserInfo = async () => {
   //   await axios.get(`https://localhost:4000/users/${}`, {
   //     withCredentials: true
@@ -25,35 +31,28 @@ const MyInfoComponent = (props) => {
   //   })
   // }
 
+  // 로그인 상태에서 회원정보 수정하면, 현재 userinfo와 서버의 회원정보 업데이트를 업데이트 해야한다. 
+  // usecontext로 현재 상태를 바꿔주고
+  // axios를 통해서 회원정보를 업데이트 한다.
 
-  // return (
-  //   <Contents>
-  //     <Title>나의 정보</Title>
-  //     <Info>
-  //       <Profile></Profile>
-  //       <Card>
-  //         <Name>{userInfo.name}</Name>
-  //         <Description>
-  //           {userInfo.description}
-  //         </Description>
-  //         <BottomContents>
-  //           <CreateDate>활동 시작일<br />{userInfo.createdAt}</CreateDate>
-  //           <Email>이메일<br />{userInfo.email}</Email>
-  //         </BottomContents>
-  //       </Card>
-  //     </Info>
-  //   </Contents>
-  // )
-
-
-
-  const infoEdit = () => {
+  const editButton = () => {
+    // axios 요청을 보내서 비밀번호가 일치하면 editMode를 true로 바꾼다. 
     setEditMode(!editMode)
   }
+  //   const editInfo = async () => {
+  //     await axios.put(`https://localhost:4000/users/${userInfo.email}`, {
+  //       email,
+  //       password,
+  //       name: changeNickname,
+  //       description : changeDescription
+  //     }
+  //     )
+  //     .then
+  //   }
 
   // axios를 통해 이미 등록된 닉네임인지 체크
   const checkNickname = () => {
-    if (!nickname_Reg.test(nickname) || nickname === '') {
+    if (!nickname_Reg.test(changeNickname) || changeNickname === '') {
       Swal.fire({
         title: '닉네임을 다시 정해주세요',
         text: '닉네임은 한글, 영문, 숫자만 가능하며 2-10자리까지 가능합니다!',
@@ -76,7 +75,16 @@ const MyInfoComponent = (props) => {
     })
   }
 
-  const editDone = () => {
+  const editDone = (event) => {
+    setUserInfo({
+      id,
+      email,
+      createdAt,
+      name: changeNickname,
+      description: changeDescription,
+    })
+    console.log(userInfo)
+
     Swal.fire({
       title: '정보가 수정되었습니다.',
       icon: 'success',
@@ -99,22 +107,21 @@ const MyInfoComponent = (props) => {
           <Card>
             <Name>
               <NameText>닉네임</NameText>
-              <Fixed>{nickname}</Fixed>
+              <Fixed>{userInfo.name}</Fixed>
             </Name>
             <Description>자기소개</Description>
-            <Textarea value={description} />
+            <Textarea value={userInfo.description} />
             <BottomContents>
               <CreateDate>
                 활동 시작일
                 <br />
-                2017-11-20
+                {userInfo.createdAt}
               </CreateDate>
               <Email>
                 이메일
                 <br />
-                pick@roll.com
+                {userInfo.email}
               </Email>
-
             </BottomContents>
           </Card>
         ) : (
@@ -123,9 +130,8 @@ const MyInfoComponent = (props) => {
               <NameText>닉네임</NameText>
               <Input
                 onChange={(e) => {
-                  setNickname(e.target.value)
+                  setChangeNickname(e.target.value)
                 }}
-                value={nickname}
               />
               <NameButton onClick={checkNickname}>확인</NameButton>
             </Name>
@@ -133,7 +139,7 @@ const MyInfoComponent = (props) => {
             <Description>자기소개</Description>
             <Textarea
               onChange={(e) => {
-                SetDescription(e.target.value)
+                setChangeDescription(e.target.value)
               }}
               placeholder="자기소개를 입력해주세요."
             />
@@ -142,43 +148,35 @@ const MyInfoComponent = (props) => {
               <CreateDate>
                 활동 시작일
                 <br />
-                2017-11-20
+                {userInfo.createdAt}
               </CreateDate>
               <Email>
                 이메일
                 <br />
-                pick@roll.com
+                {userInfo.email}
               </Email>
-              <DescriptionButton onClick={editDone}>
-                수정완료
-              </DescriptionButton>
+              <DescriptionButton onClick={editDone}>수정완료</DescriptionButton>
             </BottomContents>
           </Card>
         )}
         <BtnWrap>
           <ReviseForm>
             <ReviseBtn>
-              <FaMarker onClick={infoEdit} />
+              <FaMarker onClick={editButton} />
             </ReviseBtn>
-            <ReviseText className ="fixed">
-              사용자정보 수정
-            </ReviseText>
+            <ReviseText className="fixed">사용자정보 수정</ReviseText>
           </ReviseForm>
           <ReviseForm>
             <ReviseBtn>
               <FaKey />
             </ReviseBtn>
-            <ReviseText className ="fixed">
-              비밀번호 수정
-              </ReviseText>
+            <ReviseText className="fixed">비밀번호 수정</ReviseText>
           </ReviseForm>
-
-        </BtnWrap>     
-        </Info>
+        </BtnWrap>
+      </Info>
     </Contents>
-        )
+  )
 }
-
 
 const Contents = styled.div`
   flex-direction: column;
@@ -192,28 +190,29 @@ const TitleWrap = styled.div`
   align-items: center;
 `
 
-const Title = styled.div`
+const Title = styled.p`
   width: 200px;
   align-items: center;
   text-align: center;
-  border: solid 1px;
+  font-family: 'Noto Sans KR', sans-serif;
   margin: 5px 300px;
   font-size: 20px;
-  border-radius: 15px;
+  font-weight: 900;
   height: 30px;
   padding-top: 6px;
+  color : #4f4f4f;
 `
 
 const Info = styled.div`
   height: 300px;
-  width : 847px;
+  width: 847px;
   margin: 30px auto;
   display: flex;
-  box-shadow: 10px 10px 20px #606060;
+  box-shadow: 0px 1px 10px 1px rgb(201, 201, 201);
 
   @media (max-width: 1200px) {
-    width : 370px;
-    height : 500px;
+    width: 370px;
+    height: 500px;
     padding-right: 20px;
     box-sizing: border-box;
   }
@@ -223,15 +222,15 @@ const Profile = styled.div`
   width: 20%;
   background-color: rgb(32, 145, 28);
 
-  @media (max-width:1200px) {
-    display : none;
+  @media (max-width: 1200px) {
+    display: none;
   }
 `
 const Card = styled.div`
   width: 60%;
   padding: 30px 20px 20px 50px;
   @media (max-width: 1200px) {
-  padding : 10px;
+    padding: 10px;
   }
 `
 
@@ -239,7 +238,7 @@ const Name = styled.div`
   display: flex;
   margin-bottom: 30px;
   @media (max-width: 1200px) {
-  width : 100%;
+    width: 100%;
   }
 `
 const NameText = styled.div`
@@ -248,7 +247,7 @@ const NameText = styled.div`
   margin-top: 1px;
   white-space: nowrap;
   @media (max-width: 1200px) {
-  width : 30%;
+    width: 30%;
   }
 `
 const NameButton = styled.button`
@@ -266,8 +265,8 @@ const NameButton = styled.button`
     border: solid 1px rgb(243, 200, 18);
   }
   @media (max-width: 1200px) {
-  width : 20%;
-  white-space : nowrap;
+    width: 20%;
+    white-space: nowrap;
   }
 `
 const DescriptionButton = styled.button`
@@ -285,8 +284,8 @@ const DescriptionButton = styled.button`
     border: solid 1px rgb(243, 200, 18);
   }
   @media (max-width: 1200px) {
-    order : 1;
-    margin-left : 243px;
+    order: 1;
+    margin-left: 243px;
   }
 `
 const Fixed = styled.div`
@@ -307,7 +306,7 @@ const Description = styled.div`
 const BottomContents = styled.div`
   display: flex;
   @media (max-width: 1200px) {
-    flex-direction : column;
+    flex-direction: column;
   }
 `
 
@@ -315,8 +314,8 @@ const CreateDate = styled.div`
   width: 20%;
   padding: 12px;
   @media (max-width: 1200px) {
-    width : 100%;
-    order : 2;
+    width: 100%;
+    order: 2;
   }
 `
 
@@ -324,8 +323,8 @@ const Email = styled.div`
   padding: 12px;
   width: 30%;
   @media (max-width: 1200px) {
-    width : 100%;
-    order : 3;
+    width: 100%;
+    order: 3;
   }
 `
 
@@ -334,9 +333,9 @@ const BtnWrap = styled.div`
   flex-direction: column;
   width: 20%;
   @media (max-width: 1200px) {
-  padding : 2px 10px 0 0;
-  width: 40%;
-  height : 80px;
+    padding: 2px 10px 0 0;
+    width: 40%;
+    height: 80px;
   }
 `
 
@@ -346,11 +345,11 @@ const ReviseForm = styled.div`
   display: flex;
   flex-direction: row-reverse;
   :hover .fixed {
-    display : block;
+    display: block;
   }
   @media (max-width: 1200px) {
-  width: 140px;
-  margin-top:7px;
+    width: 140px;
+    margin-top: 7px;
   }
 `
 
@@ -361,15 +360,14 @@ const ReviseBtn = styled.div`
     color: rgb(243, 200, 18);
   }
   @media (max-width: 1200px) {
-    margin-right : 10px;
-
+    margin-right: 10px;
   }
 `
 
 const ReviseText = styled.div`
   font-size: 15px;
   margin-right: 10px;
-  display : none;
+  display: none;
   color: rgb(243, 200, 18);
 `
 
@@ -392,7 +390,7 @@ const Input = styled.input`
     color: #b5b5b5;
   }
   @media (max-width: 1200px) {
-    width : 50%;
+    width: 50%;
   }
 `
 
@@ -415,7 +413,7 @@ const Textarea = styled.textarea`
     color: #b5b5b5;
   }
   @media (max-width: 1200px) {
-    width : 300px;
+    width: 300px;
   }
 `
 

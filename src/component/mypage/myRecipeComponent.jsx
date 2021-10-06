@@ -30,12 +30,13 @@ const Title = styled.div`
   width : 200px;
   align-items : center;
   text-align: center;
-  border: solid 1px;
+  font-weight : 900;
   margin : 5px 300px;
   font-size : 20px;
-  border-radius: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
   height : 30px;
   padding-top : 6px;
+  color : #4f4f4f;
 `
 
 

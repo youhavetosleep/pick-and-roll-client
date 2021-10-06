@@ -26,7 +26,7 @@ return (
 
       <Menu className={show ? 'showM' : ""}>
       
-      <MenuTitle>MenuComponent</MenuTitle>
+      <MenuTitle>Menu</MenuTitle>
 
       <List className="favorite" onClick={changeFavorite} >즐겨찾기</List>
       <List className="myRecipe" onClick={changeMyRecipe} >나의 레시피</List>
@@ -92,7 +92,7 @@ const Menu = styled.div`
   padding : 0;
   height : 700px;
   width : 273px;
-  background-color : green;
+  background-color : #f3c811;
   color : white;
 
   @media (max-width: 1200px) {
@@ -126,10 +126,12 @@ const List = styled.div`
   text-align: center;
   width : 100%;
   padding : 10px 0;
-
+  font-family: 'Noto Sans KR', sans-serif;
   margin-bottom : 5px;
   :hover {
-    background-color: grey;
+    color : #f3c811;
+    background-color: #ffffff;
+    font-weight: bold;
 }
 
 @media (max-width: 1200px) {

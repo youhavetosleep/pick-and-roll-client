@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useHistory } from 'react-router'
-import styled  from 'styled-components'
+import styled from 'styled-components'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 
@@ -59,8 +59,10 @@ const SignupComponent = () => {
       _pw.current.focus()
       setMessagePassword('비밀번호를 먼저 입력해주세요!')
     } else if (password !== '' && !pwCheck) setMessagePwCheck('')
-    else if (password !== pwCheck || !password_Reg.test(password)) setMessagePwCheck('비밀번호를 다시 확인해주세요!')
-    else if (password === pwCheck && password_Reg.test(password)) setMessagePwCheck('✔ 비밀번호가 확인되었습니다!')
+    else if (password !== pwCheck || !password_Reg.test(password))
+      setMessagePwCheck('비밀번호를 다시 확인해주세요!')
+    else if (password === pwCheck && password_Reg.test(password))
+      setMessagePwCheck('✔ 비밀번호가 확인되었습니다!')
   }
 
   // axios를 통해 이미 등록된 닉네임인지 체크
@@ -99,35 +101,39 @@ const SignupComponent = () => {
       setMessageDescription('자기소개를 입력해주세요!')
       return
     }
- 		//preventDefault는 창이 새로 고침되는 것을 막기 위해서 
-      event.preventDefault()
-      // console.log(email, password, nickname, description)
-      // 마지막으로 axios로 데이터를 넘겨준다. 
+    //preventDefault는 창이 새로 고침되는 것을 막기 위해서
+    event.preventDefault()
+    // console.log(email, password, nickname, description)
+    // 마지막으로 axios로 데이터를 넘겨준다.
 
-      await axios.post('https://localhost:4000/users/signUp', {
-        email,
-        password,
-        name: nickname,
-        description
-      }, {
-        'Content-Type': 'application/json'
-      })
+    await axios
+      .post(
+        'https://localhost:4000/users/signUp',
+        {
+          email,
+          password,
+          name: nickname,
+          description,
+        },
+        {
+          'Content-Type': 'application/json',
+        }
+      )
       .then((res) => {
-        console.log(res);
+        console.log(res)
       })
 
-      Swal.fire({
-        title: '회원가입이 완료되었습니다.',
-        text: '모든 레시피를 확인해보세요!',
-        confirmButtonColor: '#d6d6d6',
-        confirmButtonText: '확인',
-      })
-      history.push('/')
+    Swal.fire({
+      title: '회원가입이 완료되었습니다.',
+      text: '모든 레시피를 확인해보세요!',
+      confirmButtonColor: '#d6d6d6',
+      confirmButtonText: '확인',
+    })
+    history.push('/')
   }
 
   return (
     <Wrapper>
-
       <TitleArea>
         <Title>Pick & Roll</Title>
         <MainText>
@@ -223,7 +229,6 @@ const SignupComponent = () => {
           <SignupBtn onClick={signUp}>회원가입</SignupBtn>
         </FormGroup>
       </Form>
-
     </Wrapper>
   )
 }
@@ -235,7 +240,6 @@ const Wrapper = styled.div`
   align-items: center;
   text-align: center;
 `
-
 
 const TitleArea = styled.div`
   width: 360px;
