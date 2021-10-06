@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 
 import styled from 'styled-components'
 
@@ -8,29 +7,21 @@ import { RiDeleteBinFill } from 'react-icons/ri'
 
 const ContentImgsComponent = ({ contentImgs, setContentImgs }) => {
   const [imgUrl, setImgUrl] = useState('')
+  
 
   const onImgDrop = async (e) => {
     
     const newFile = e.target.files[0]
-
-    /// submit하면 한번에
-    const form = new FormData()
-    form.append('file', newFile)
-    form.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET_CONTENT)
-    form.append('name', 'hi')
-
-    await axios.post(process.env.REACT_APP_CLOUDINARY_URL, form).then((res) => {
-      console.log(5, res)
-    })
+    if (newFile) {
+    
     const reader = new FileReader()
     reader.readAsDataURL(newFile)
     reader.onloadend = () => {
       setImgUrl(reader.result)
     }
-    ///
-    console.log(3, form)
-    if (newFile) {
+  
       const updatedList = [...contentImgs, newFile]
+     
       setContentImgs(updatedList)
     }
   }

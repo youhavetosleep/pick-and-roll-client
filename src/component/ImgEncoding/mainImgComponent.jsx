@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 
 import styled from 'styled-components'
 
@@ -11,27 +10,23 @@ const MainImgsComponent = ({ mainImg, setMainImg }) => {
 
   const onImgDrop = async (e) => {
     const newFile = e.target.files[0]
-
-    const form = new FormData()
-    form.append('file', newFile)
-    form.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET_MAIN)
-    form.append('name', 'hi')
-    form.append('width', 100)
-    form.append('height', 100)
-    setMainImg(form)
-
-    const reader = new FileReader()
-    reader.readAsDataURL(newFile)
-    reader.onloadend = () => {
-      console.log(reader)
-      setPreviewUrl(reader.result)
-    }
-
     if (newFile) {
-      setMainImg(newFile)
+      const form = new FormData()
+      form.append('file', newFile)
+      form.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET_MAIN)
+      form.append('name', 'hi')
+      form.append('width', 100)
+      form.append('height', 100)
+      setMainImg(form)
+
+      const reader = new FileReader()
+      reader.readAsDataURL(newFile)
+      reader.onloadend = () => {
+        console.log(reader)
+        setPreviewUrl(reader.result)
+      }
     }
   }
-
   const imgRemove = (img) => {
     setMainImg('')
   }

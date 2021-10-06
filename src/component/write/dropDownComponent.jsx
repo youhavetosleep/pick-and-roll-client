@@ -5,7 +5,7 @@ const DropDownTime = ({requiredTime, setRequiredTime}) => {
   
   const onChangeRequiredTime = useCallback((event) => {
     setRequiredTime(event.target.value)
-  }, [])
+  })
 
   return (
     <Wrapper>
@@ -43,6 +43,7 @@ export const DropDownCategory = ({category, setCategory}) => {
         value={category}
       />
       <select onChange={(e) => onChangeCategory(e)}>
+      <option value='ㅇㅇ'></option>
         <option value='한식'>한식</option>
         <option value='중식'>중식</option>
         <option value='일식'>일식</option>

@@ -1,5 +1,6 @@
-import React, { useRef, useState, useCallback } from 'react'
+import React, { useRef, useState, useCallback, useContext } from 'react'
 import { useHistory } from 'react-router'
+import axios from 'axios'
 
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
@@ -12,9 +13,11 @@ import AddListContent, {
 import DropDownTime, {
   DropDownCategory,
 } from '../component/write/dropDownComponent'
+import { UserContext } from '../Context/userContext'
 
 const Write = (props) => {
   const history = useHistory()
+  const { userInfo, setUserInfo } = useContext(UserContext)
 
   const [userId, setUserId] = useState(0)
   const [title, setTitle] = useState('')
@@ -24,6 +27,7 @@ const Write = (props) => {
   const [contents, setContents] = useState([' '])
   const [mainImg, setMainImg] = useState('')
   const [contentImgs, setContentImgs] = useState([])
+  const [url, setUrl] = useState([])
   const [ingredients, setIngredients] = useState([
     {
       ingredient: '',
@@ -50,53 +54,84 @@ const Write = (props) => {
     setIntroduction(event.target.value)
   }, [])
 
-  const onChangeMainImg = useCallback((event) => {
-    setMainImg(event.target.value)
-  }, [])
-
-  const onChangeContentImgs = useCallback((event) => {
-    setContentImgs([...contentImgs, event.target.value])
-  }, [])
-
   // 회원가입 버튼
-  const signUp = (event) => {
-    //preventDefault는 창이 새로 고침되는 것을 막기 위해서
-    event.preventDefault()
+  // const signUp = (event) => {
+  //   //preventDefault는 창이 새로 고침되는 것을 막기 위해서
+  //   event.preventDefault()
 
-    Swal.fire({
-      title: '회원가입이 완료되었습니다.',
-      text: `모든 레시피를 확인해보세요! `,
-      confirmButtonColor: '#d6d6d6',
-      confirmButtonText: '확인',
+  //   Swal.fire({
+  //     title: '회원가입이 완료되었습니다.',
+  //     text: `모든 레시피를 확인해보세요! `,
+  //     confirmButtonColor: '#d6d6d6',
+  //     confirmButtonText: '확인',
+  //   })
+  //   history.push('/')
+  // }
+  const getUrl = async (form, idx) => {
+    let result
+    await axios.post(process.env.REACT_APP_CLOUDINARY_URL, form).then((res) => {
+      setUrl([...url, res.data.url])
     })
-    history.push('/')
+    return result
   }
 
-  //   const postInfoSubmit = useCallback(async () => {
+  const postInfoSubmit = useCallback(async () => {
+    let content = contents.join('@')
+    // regex
+    let ingred = ingredients.map(
+      (el) => `${el.ingredient}` + ',' + `${el.amount}`
+    )
+    let finalIngredients = ingred.join('@')
 
-  //     let content = [content1, content2].join('@');
-  //     let contentImgs = [contentImg1, contentImg2].join(',');
-  //     let ing1 = [ingredients1, amount1].join(',');
-  //     let ing2 = [ingredients2, amount2].join(',');
-  //     let ingredients = [ing1, ing2].join('@');
-  // await axios.post(process.env.REACT_APP_CLOUDINARY_URL, form).then((res) => {
-  //   console.log(5, res)
+    let finalMainImg
+    await axios
+      .post(process.env.REACT_APP_CLOUDINARY_URL, mainImg)
+      .then((res) => {
+        console.log(5, res)
+        finalMainImg = res.data.url
+      })
 
-  // })
-  //     await axios.post('https://localhost:4000/posts/write', {
-  //         userId,
-  //         title,
-  //         introduction,
-  //         category,
-  //         requiredTime,
-  //         content,
-  //         mainImg,
-  //         contentImgs,
-  //         ingredients
-  //     }, {
-  //         'Content-Type' : 'application/json'
-  //     })
-  // });
+    let contentUrls = contentImgs.map((el) => {
+      const form = new FormData()
+      form.append('file', el)
+      form.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET_CONTENT)
+      form.append('name', 'hi')
+      return form
+    })
+
+    let finalContentUrl = contentUrls.map(async (el, idx) => {
+      return await getUrl(el, idx)
+    })
+    //promise
+
+    finalContentUrl = url.join(',')
+    console.log(url)
+
+    console.log({
+      UserId: userInfo.email,
+      Title: title,
+      Introduction: introduction,
+      Category: category,
+      RequiredTime: requiredTime,
+      Content: content,
+      MainImg: finalMainImg,
+      ContentImgs: finalContentUrl,
+      Ingredients: finalIngredients,
+    })
+    // await axios.post('https://localhost:4000/posts/write', {
+    //     UserId: userInfo.email,
+    // Title: title,
+    // Introduction: introduction,
+    // Category: category,
+    // RequiredTime: requiredTime ,
+    // Content: content,
+    // MainImg: finalMainImg,
+    // ContentImgs: finalContentUrl,
+    // Ingredients: finalIngredients
+    // }, {
+    //     'Content-Type' : 'application/json'
+    // })
+  })
 
   return (
     <>
@@ -180,9 +215,8 @@ const Write = (props) => {
               setContentImgs={setContentImgs}
             ></ContentImgComponent>
           </FormGroup>
-
           <FormGroup>
-            <SignupBtn onClick={signUp}>등록하기</SignupBtn>
+            <SignupBtn onClick={() => postInfoSubmit()}>등록하기</SignupBtn>
           </FormGroup>
         </Form>
       </Wrapper>
