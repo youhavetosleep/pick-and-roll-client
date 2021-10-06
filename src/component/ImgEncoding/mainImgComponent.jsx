@@ -4,13 +4,12 @@ import axios from 'axios'
 
 import styled  from 'styled-components';
 
-import Swal from 'sweetalert2';
 import { BsUpload } from 'react-icons/bs'
 import { RiDeleteBinFill } from 'react-icons/ri'
 
 const MainImgsComponent = ({postInfo, setPostInfo}) => {
   const [imgUrl, setImgUrl] = useState('')
-  const [previewUrl, setPreviewUrl] = useState([])
+  const [previewUrl, setPreviewUrl] = useState('')
   const {
     title,
     introduction,
@@ -27,19 +26,25 @@ const MainImgsComponent = ({postInfo, setPostInfo}) => {
     const newFile = e.target.files[0];
     
     const form = new FormData()
-        form.append("file", )
-        form.append("upload_preset", "mainfolder")
-        form.append('name', "hi")
+        form.append('file', newFile)
+        form.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET_MAIN)
+        form.append('name', 'hi')
+        form.append('width', 100)
+        form.append('height', 100)
+
       
-       await axios.post('https://api.cloudinary.com/v1_1/dlkl7penh/image/upload',form)
+       await axios.post(process.env.REACT_APP_CLOUDINARY_URL, form)
         .then(res=>{
             console.log(5, res)
+            res.data.width = 100
+            res.data.height=50
             setImgUrl(res.data.url);
         })
         const reader = new FileReader();
         reader.readAsDataURL(newFile);
         reader.onloadend = () => {
-          setPreviewUrl([...previewUrl, reader.result])
+          console.log(reader)
+          setPreviewUrl(reader.result)
         };
 
     console.log(3, form)
@@ -70,7 +75,7 @@ const MainImgsComponent = ({postInfo, setPostInfo}) => {
                     선택파일 목록
                   </p>
                   <LoadedList>
-                    <img src="" alt="" />
+                    <img src={previewUrl} alt="" />
                       <div className="info">
                         <p>{mainImg.name}</p>
                       </div>
