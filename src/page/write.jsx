@@ -1,35 +1,49 @@
-import React, { useRef, useState, useCallback } from 'react'
+import React, { useRef, useState } from 'react'
 import { useHistory } from 'react-router'
 
 import styled from 'styled-components'
+
 import Swal from 'sweetalert2'
+import { BsUpload } from 'react-icons/bs'
 
 import ContentImgComponent from '../component/ImgEncoding/contentImgsComponent'
 import MainImgComponent from '../component/ImgEncoding/mainImgComponent'
-import AddListContent, {
-  AddListingredients,
-} from '../component/write/addListComponent'
-import DropDownTime, {
-  DropDownCategory,
-} from '../component/write/dropDownComponent'
 
 const Write = (props) => {
+  const Info = {
+    title: '',
+    introduction: '',
+    category: '',
+    requiredTime: 0,
+    contents: [
+      [1, ''],
+      [2, ''],
+      [3, ''],
+    ],
+    mainImg: '',
+    contentImgs: [],
+    ingredients: [
+      [1, '', ''],
+      [2, '', ''],
+      [3, '', ''],
+    ],
+  }
+  const [postInfo, setPostInfo] = useState(Info)
   const history = useHistory()
 
-  const [userId, setUserId] = useState(0)
-  const [title, setTitle] = useState('')
-  const [introduction, setIntroduction] = useState('')
-  const [category, setCategory] = useState('')
-  const [requiredTime, setRequiredTime] = useState('')
-  const [contents, setContents] = useState([' '])
-  const [mainImg, setMainImg] = useState('')
-  const [contentImgs, setContentImgs] = useState([])
-  const [ingredients, setIngredients] = useState([
-    {
-      ingredient: '',
-      amount: '',
-    },
-  ])
+  // 회원가입 데이터
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [pwCheck, setPwCheck] = useState('')
+  const [nickname, setNickname] = useState('')
+  const [description, setDescription] = useState('')
+
+  // 정확한 입력을 위한 메시지 표기
+  const [messageEmail, setMessageEmail] = useState('')
+  const [messagePassword, setMessagePassword] = useState('')
+  const [messagePwCheck, setMessagePwCheck] = useState('')
+  const [messageNickname, setMessageNickname] = useState('')
+  const [messageDescription, setMessageDescription] = useState('')
 
   // focus 이벤트를 주기 위한 Ref
   const _email = useRef()
@@ -38,31 +52,44 @@ const Write = (props) => {
   const _nick = useRef()
   const _des = useRef()
 
-  const onChangeUserId = useCallback((event) => {
-    setUserId(event.target.value)
-  })
-
-  const onChangeTitle = useCallback((event) => {
-    setTitle(event.target.value)
-  })
-
-  const onChangeIntroduction = useCallback((event) => {
-    setIntroduction(event.target.value)
-  }, [])
-
-  const onChangeMainImg = useCallback((event) => {
-    setMainImg(event.target.value)
-  }, [])
-
-  const onChangeContentImgs = useCallback((event) => {
-    setContentImgs([...contentImgs, event.target.value])
-  }, [])
+  const {
+    title,
+    introduction,
+    category,
+    requiredTime,
+    contents,
+    mainImg,
+    contentImgs,
+    ingredients,
+  } = postInfo
 
   // 회원가입 버튼
   const signUp = (event) => {
+    if (email === '') {
+      _email.current.focus()
+      setMessageEmail('이메일을 입력해주세요!')
+      return
+    } else if (password === '') {
+      _pw.current.focus()
+      setMessagePassword('비밀번호를 입력해주세요!')
+      return
+    } else if (pwCheck === '') {
+      _pwChk.current.focus()
+      setMessagePwCheck('비밀번호를 한번 더 입력해주세요!')
+      return
+    } else if (nickname === '') {
+      _nick.current.focus()
+      setMessageNickname('닉네임을 입력해주세요!')
+      return
+    } else if (description === '') {
+      _des.current.focus()
+      setMessageDescription('자기소개를 입력해주세요!')
+      return
+    }
     //preventDefault는 창이 새로 고침되는 것을 막기 위해서
     event.preventDefault()
-
+    console.log(email, password, nickname, description)
+    // 마지막으로 axios로 데이터를 넘겨준다.
     Swal.fire({
       title: '회원가입이 완료되었습니다.',
       text: `모든 레시피를 확인해보세요! `,
@@ -72,31 +99,7 @@ const Write = (props) => {
     history.push('/')
   }
 
-  //   const postInfoSubmit = useCallback(async () => {
-
-  //     let content = [content1, content2].join('@');
-  //     let contentImgs = [contentImg1, contentImg2].join(',');
-  //     let ing1 = [ingredients1, amount1].join(',');
-  //     let ing2 = [ingredients2, amount2].join(',');
-  //     let ingredients = [ing1, ing2].join('@');
-  // await axios.post(process.env.REACT_APP_CLOUDINARY_URL, form).then((res) => {
-  //   console.log(5, res)
-
-  // })
-  //     await axios.post('https://localhost:4000/posts/write', {
-  //         userId,
-  //         title,
-  //         introduction,
-  //         category,
-  //         requiredTime,
-  //         content,
-  //         mainImg,
-  //         contentImgs,
-  //         ingredients
-  //     }, {
-  //         'Content-Type' : 'application/json'
-  //     })
-  // });
+  //이미지 파일 변환함수
 
   return (
     <>
@@ -108,77 +111,126 @@ const Write = (props) => {
         <Form>
           <FormGroup>
             <Labal>
-              <span className="require">1.</span> &nbsp; 제목
+              제목
+              <span className="require">*</span>
             </Labal>
             <Input
               type="text"
               placeholder="제목을 입력해주세요"
-              onChange={(e) => onChangeTitle(e)}
+              onChange={(e) => {}}
               ref={_email}
             />
+            <CheckText>{messageEmail}</CheckText>
           </FormGroup>
           <FormGroup>
             <Labal>
-              <span className="require">2.</span>&nbsp; 요리소개
+              요리소개
+              <span className="require">*</span>
             </Labal>
             <Textarea
               type="text"
               placeholder="요리에 특별한 사연이 있다면 알려주세요!"
-              onChange={(e) => onChangeIntroduction(e)}
+              onChange={(e) => {}}
               ref={_pw}
             />
+            <CheckText>{messagePassword}</CheckText>
           </FormGroup>
           <FormGroup>
             <Labal>
-              <span className="require">3.</span>&nbsp; 메인 사진
+              {' '}
+              메인 사진
+              <span className="require">*</span>
             </Labal>
-            <MainImgComponent
-              className="imgBox"
-              mainImg={mainImg}
-              setMainImg={setMainImg}
+            <MainImgComponent postInfo={postInfo} setPostInfo={setPostInfo} />
+            <CheckText>{messagePwCheck}</CheckText>
+          </FormGroup>
+          <FormGroup>
+            <Labal>
+              {' '}
+              레시피 카테고리
+              <span className="require">*</span>
+            </Labal>
+            <Input
+              type="text"
+              placeholder="카테고리"
+              onChange={(e) => {
+                setNickname(e.target.value)
+              }}
+              ref={_nick}
             />
+            <CheckText>{messageNickname}</CheckText>
           </FormGroup>
           <FormGroup>
             <Labal>
-              <span className="require">4.</span>&nbsp; 레시피 카테고리
+              {' '}
+              조리시간
+              <span className="require">*</span>
             </Labal>
-            <DropDownCategory category={category} setCategory={setCategory} />
-          </FormGroup>
-          <FormGroup>
-            <Labal>
-              <span className="require">5.</span>&nbsp; 조리시간
-            </Labal>
-            <DropDownTime
-              requiredTime={requiredTime}
-              setRequiredTime={setRequiredTime}
+            <Input
+              type="text"
+              placeholder="조리시간"
+              onChange={(e) => {
+                setNickname(e.target.value)
+              }}
+              ref={_nick}
             />
+            <CheckText>{messageNickname}</CheckText>
           </FormGroup>
           <FormGroup>
             <Labal>
-              <span className="require">6.</span>&nbsp; 요리 재료
+              요리 재료
+              <span className="require">*</span>
             </Labal>
-            <AddListingredients
-              ingredients={ingredients}
-              setIngredients={setIngredients}
-            />
+            {ingredients.map((ingredient, idx) => (
+              <InlineBox key={idx}>
+                <span>{ingredient[0]}.</span>
+                <Input
+                  type="text"
+                  // value={ingredient[1]}
+                  onChange={(e) => {
+                    ingredient[1] = e.target.value
+                  }}
+                />
+                <Input
+                  type="text"
+                  value={ingredient[2]}
+                  onChange={(e) => {
+                    ingredient[2] = e.target.value
+                  }}
+                />
+              </InlineBox>
+            ))}
+            <CheckText>{messageDescription}</CheckText>
           </FormGroup>
           <FormGroup>
             <Labal>
-              <span className="require">7.</span>&nbsp; 요리 방법
+              요리 방법
+              <span className="require">*</span>
             </Labal>
-            <AddListContent
-              contents={contents}
-              setContents={setContents}
-            ></AddListContent>
+            {contents.map((content, idx) => (
+              <InlineBox key={idx}>
+                <span>{content[0]}.</span>
+                <Textarea
+                  type="text"
+                  // value={content[1]}
+                  onChange={(e) => {
+                    content[1] = e.target.value
+                  }}
+                />
+              </InlineBox>
+            ))}
+            <CheckText>{messageDescription}</CheckText>
           </FormGroup>
           <FormGroup>
             <Labal>
-              <span className="require">8.</span>&nbsp; 요리 사진
+              요리 사진
+              <span className="require">*</span>
             </Labal>
             <ContentImgComponent
-              contentImgs={contentImgs}
-              setContentImgs={setContentImgs}
+              postInfo={postInfo}
+              setPostInfo={setPostInfo}
             ></ContentImgComponent>
+            <CheckText>{messageDescription}</CheckText>
           </FormGroup>
 
           <FormGroup>
@@ -195,6 +247,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 `
 
 const TitleArea = styled.div`
@@ -224,16 +277,15 @@ const Form = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: -6%;
+
+  align-items: center;
   padding: 25px 0px;
 `
 
 const FormGroup = styled.div`
   display: block;
-  margin-left: 13%;
+  margin-top: 15px;
   text-align: center;
-  /* width: 80%;
-  height: 80%; */
 `
 const CheckText = styled.div`
   height: 3px;
@@ -256,13 +308,11 @@ const Labal = styled.div`
 `
 
 const Input = styled.input`
-  width: 300px;
-  height: 15px;
   align-items: center;
-  padding: 15px 50px 10px 10px;
+  margin: 25px 30px;
+  padding: 25px 100px 25px 100px;
   border-radius: 8px;
   border: solid 2px #d2d2d2;
-
   :focus {
     border: solid 2px rgb(243, 200, 18);
     outline: none;
@@ -274,22 +324,9 @@ const Input = styled.input`
     color: #b5b5b5;
   }
 `
-
-export const SignupBtn = styled.button`
-  width: 300px;
-  text-align: center;
-  align-items: center;
-  padding: 0px 0px;
-  background-color: rgb(243, 200, 18);
-  height: 50px;
-  border: 1px solid transparent;
-  border-radius: 13px;
-  color: white;
-  font-size: 17px;
-`
 const Textarea = styled.textarea`
-  width: 400px;
-  height: 120px;
+  width: 341px;
+  height: 70px;
   align-items: center;
   padding: 5px 10px 10px 10px;
   border-radius: 8px;
@@ -300,10 +337,30 @@ const Textarea = styled.textarea`
     outline: none;
   }
   ::placeholder {
-    font-size: 20px;
+    font-size: 13px;
     text-align: left;
     line-height: 1.5;
     color: #b5b5b5;
+  }
+`
+
+const SignupBtn = styled.button`
+  width: 366px;
+  text-align: center;
+  align-items: center;
+  padding: 0px 0px;
+  background-color: rgb(243, 200, 18);
+  height: 50px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  color: white;
+  font-size: 17px;
+`
+
+const InlineBox = styled.div`
+  display: inline-block;
+  a {
+    font-size: 30px;
   }
 `
 export default Write
