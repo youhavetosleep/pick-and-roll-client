@@ -19,7 +19,6 @@ const NavbarComponent = ({ handleLogin, handleLogout }) => {
 
   const changeMenu = () => {
     setOpenMenu(!openMenu)
-    console.log(openMenu)
   }
 
   const logout = async () => {
@@ -163,9 +162,9 @@ const Logo = styled(NavLinkLogo)`
 `
 const ChangeClick = styled.div`
   text-align: end;
-  margin: 10px 15px ;
+  margin: 10px 15px;
   font-size: 15px;
-  padding: 10px 15px ;
+  padding: 10px 15px;
   font-family: 'Noto Sans KR', sans-serif;
   text-decoration: none;
   color: rgb(243, 200, 18);
@@ -180,9 +179,9 @@ const ChangeClick = styled.div`
 
 const NavElement = styled(NavLinkElement)`
   text-align: end;
-  margin: 10px 15px ;
+  margin: 10px 15px;
   font-size: 15px;
-  padding: 10px 15px ;
+  padding: 10px 15px;
   font-family: 'Noto Sans KR', sans-serif;
   text-decoration: none;
   color: rgb(243, 200, 18);
