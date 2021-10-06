@@ -6,7 +6,7 @@ import { BsUpload } from 'react-icons/bs'
 import { RiDeleteBinFill } from 'react-icons/ri'
 
 const ContentImgsComponent = ({ contentImgs, setContentImgs }) => {
-  const [imgUrl, setImgUrl] = useState('')
+  const [imgUrl, setImgUrl] = useState([])
   
 
   const onImgDrop = async (e) => {
@@ -17,7 +17,7 @@ const ContentImgsComponent = ({ contentImgs, setContentImgs }) => {
     const reader = new FileReader()
     reader.readAsDataURL(newFile)
     reader.onloadend = () => {
-      setImgUrl(reader.result)
+      setImgUrl([...imgUrl, reader.result])
     }
   
       const updatedList = [...contentImgs, newFile]
@@ -26,10 +26,13 @@ const ContentImgsComponent = ({ contentImgs, setContentImgs }) => {
     }
   }
 
-  const imgRemove = (img) => {
+  const imgRemove = (img,index) => {
     const updatedList = [...contentImgs]
     updatedList.splice(contentImgs.indexOf(img), 1)
     setContentImgs(updatedList)
+    const updatedUrl = [...imgUrl]
+    updatedLUrl.splice(index, 1)
+    setImgUrl(updatedUrl)
     console.log(img)
   }
 
@@ -54,10 +57,10 @@ const ContentImgsComponent = ({ contentImgs, setContentImgs }) => {
           {contentImgs.map((item, index) => (
             <LoadedList key={index}>
               <div className="info">
-                <img src={imgUrl} alt="" />
+                <img src={imgUrl[index]} alt="" />
                 <p>{item.name}</p>
               </div>
-              <span className="delete" onClick={() => imgRemove(item)}>
+              <span className="delete" onClick={() => imgRemove(item,index)}>
                 <RiDeleteBinFill className="icon" />
               </span>
             </LoadedList>
